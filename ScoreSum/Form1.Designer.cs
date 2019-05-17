@@ -67,6 +67,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.re = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.ScoreUD = new System.Windows.Forms.NumericUpDown();
+            this.スコア基準 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -423,11 +426,50 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // ScoreUD
+            // 
+            this.ScoreUD.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.ScoreUD.Location = new System.Drawing.Point(610, 112);
+            this.ScoreUD.Maximum = new decimal(new int[] {
+            1500000,
+            0,
+            0,
+            0});
+            this.ScoreUD.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.ScoreUD.Name = "ScoreUD";
+            this.ScoreUD.Size = new System.Drawing.Size(177, 22);
+            this.ScoreUD.TabIndex = 52;
+            this.ScoreUD.Value = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.ScoreUD.ValueChanged += new System.EventHandler(this.ScoreUD_ValueChanged);
+            // 
+            // スコア基準
+            // 
+            this.スコア基準.AutoSize = true;
+            this.スコア基準.Location = new System.Drawing.Point(607, 94);
+            this.スコア基準.Name = "スコア基準";
+            this.スコア基準.Size = new System.Drawing.Size(69, 15);
+            this.スコア基準.TabIndex = 53;
+            this.スコア基準.Text = "スコア基準";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1548, 450);
+            this.Controls.Add(this.スコア基準);
+            this.Controls.Add(this.ScoreUD);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.re);
             this.Controls.Add(this.label13);
@@ -469,6 +511,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "TJAScoreCalculator";
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,6 +558,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label re;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.NumericUpDown ScoreUD;
+        private System.Windows.Forms.Label スコア基準;
     }
 }
 
