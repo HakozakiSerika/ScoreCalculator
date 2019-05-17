@@ -66,7 +66,9 @@ namespace ScoreSum
         private int[] baAmount = new int[2] { 0, 0 };
         private string[] NORMALCombo = new string[5] { null, null, null, null, null };
         private string[] GOGOCombo = new string[5] { null, null, null, null, null };
-        private int ScoreInit = 0, ScoreDiff = 0 ,Score = 0, ComboBonus = 0;
+        private int ScoreInit = 0, ScoreDiff = 0 ,Score = 0, ComboBonus = 0, ScoreCor = 0;
+        private bool b = false;
+
 
 
 
@@ -575,7 +577,6 @@ namespace ScoreSum
                 gtdk4.Text = gtdk[4].ToString();
 
                 //計算
-                bool b = false;
                 if (!b)
                 {
                     if (level <= 1)
@@ -624,21 +625,29 @@ namespace ScoreSum
                     }
 
                     ScoreUD.Value = Score;
+                    ComboBonus = tja0[1].Length / 100;
+                    ScoreInit = (Score - ComboBonus * 10000 - baSum[0] * 5000 - baSum[1] * 6000 - baAmount[0] * 300 - baAmount[1] * 300) /
+                    (ndk[0] + ndk[1] * 5 / 4 + ndk[2] * 3 / 2 + ndk[3] * 2 + ndk[4] * 3 + ntdk[0] * 2 + ntdk[1] * 2 * 5 / 4 + ntdk[2] * 2 * 3 / 2 + ntdk[3] * 2 * 2 + ntdk[4] * 2 * 3 +
+                    gdk[0] * 12 / 10 + gdk[1] * 12 / 10 * 5 / 4 + gdk[2] * 12 / 10 * 3 / 2 + gdk[3] * 12 / 10 * 2 + gdk[4] * 12 / 10 * 3 + gtdk[0] * 12 / 10 * 2 + gtdk[1] * 12 / 10 * 2 * 5 / 4 + gtdk[2] * 12 / 10 * 2 * 3 / 2 + gtdk[3] * 12 / 10 * 2 * 2 + gtdk[4] * 12 / 10 * 2 * 3);
+
+                    ScoreDiff = ScoreInit / 4;
+
                     si.Text = ScoreInit.ToString();
                     sd.Text = ScoreDiff.ToString();
                     re.Text = ((ndk[0] * ScoreInit + ndk[1] * ScoreInit + ndk[1] * ScoreDiff + ndk[2] * ScoreInit + ndk[2] * ScoreDiff * 2 + ndk[3] * ScoreInit + ndk[3] * ScoreDiff * 4 + ndk[4] * ScoreInit + ndk[4] * ScoreDiff * 8 + ntdk[0] * ScoreInit * 2 + (ntdk[1] * ScoreInit + ntdk[1] * ScoreDiff) * 2 + (ntdk[2] * ScoreInit + ntdk[2] * ScoreDiff * 2) * 2 + (ntdk[3] * ScoreInit + ntdk[3] * ScoreDiff * 4) * 2 + (ntdk[4] * ScoreInit + ntdk[4] * ScoreDiff * 8) * 2 +
                         gdk[0] * ScoreInit * 12 / 10 + (gdk[1] * ScoreInit + gdk[1] * ScoreDiff) * 12 / 10 + (gdk[2] * ScoreInit + gdk[2] * ScoreDiff * 2) * 12 / 10 + (gdk[3] * ScoreInit + gdk[3] * ScoreDiff * 4) * 12 / 10 + (gdk[4] * ScoreInit + gdk[4] * ScoreDiff * 8) * 12 / 10 + (gtdk[0] * ScoreInit) * 2 * 12 / 10 + (gtdk[1] * ScoreInit + gtdk[1] * ScoreDiff) * 2 * 12 / 10 + (gtdk[2] * ScoreInit + gtdk[2] * ScoreDiff * 2) * 2 * 12 / 10 + (gtdk[3] * ScoreInit + gtdk[3] * ScoreDiff * 4) * 2 * 12 / 10 + (gtdk[4] * ScoreInit + gtdk[4] * ScoreDiff * 8) * 2 * 12 / 10) + (ComboBonus * 10000 + baSum[0] * 5000 + baSum[1] * 6000 + baAmount[0] * 300 + baAmount[1] * 300)).ToString();
+                    textBox1.Text = ScoreUD.Value.ToString();
 
+                    button1.Visible = false;
+                    label1.Text = ofd.FileName;
                     b = true;
                 }
-                ComboBonus = tja0[1].Length / 100;
 
                 int[] n = new int[20];
 
 
 
 
-                textBox1.Text = tja0[1].ToString();
 
 
             }
@@ -775,19 +784,23 @@ namespace ScoreSum
 
         private void ScoreUD_ValueChanged(object sender, EventArgs e)
         {
-            Score = (int)ScoreUD.Value;
+            if (b)
+            {
+                Score = (int)ScoreUD.Value;
 
-            ScoreInit = (Score - ComboBonus * 10000 - baSum[0] * 5000 - baSum[1] * 6000 - baAmount[0] * 300 - baAmount[1] * 300) /
-            (ndk[0] + ndk[1] * 5 / 4 + ndk[2] * 3 / 2 + ndk[3] * 2 + ndk[4] * 3 + ntdk[0] * 2 + ntdk[1] * 2 * 5 / 4 + ntdk[2] * 2 * 3 / 2 + ntdk[3] * 2 * 2 + ntdk[4] * 2 * 3 +
-            gdk[0] * 12 / 10 + gdk[1] * 12 / 10 * 5 / 4 + gdk[2] * 12 / 10 * 3 / 2 + gdk[3] * 12 / 10 * 2 + gdk[4] * 12 / 10 * 3 + gtdk[0] * 12 / 10 * 2 + gtdk[1] * 12 / 10 * 2 * 5 / 4 + gtdk[2] * 12 / 10 * 2 * 3 / 2 + gtdk[3] * 12 / 10 * 2 * 2 + gtdk[4] * 12 / 10 * 2 * 3);
+                ScoreInit = (Score - ComboBonus * 10000 - baSum[0] * 5000 - baSum[1] * 6000 - baAmount[0] * 300 - baAmount[1] * 300) /
+                    (ndk[0] + ndk[1] * 5 / 4 + ndk[2] * 3 / 2 + ndk[3] * 2 + ndk[4] * 3 + ntdk[0] * 2 + ntdk[1] * 2 * 5 / 4 + ntdk[2] * 2 * 3 / 2 + ntdk[3] * 2 * 2 + ntdk[4] * 2 * 3 +
+                    gdk[0] * 12 / 10 + gdk[1] * 12 / 10 * 5 / 4 + gdk[2] * 12 / 10 * 3 / 2 + gdk[3] * 12 / 10 * 2 + gdk[4] * 12 / 10 * 3 + gtdk[0] * 12 / 10 * 2 + gtdk[1] * 12 / 10 * 2 * 5 / 4 + gtdk[2] * 12 / 10 * 2 * 3 / 2 + gtdk[3] * 12 / 10 * 2 * 2 + gtdk[4] * 12 / 10 * 2 * 3);
 
-            ScoreDiff = ScoreInit / 4;
+                ScoreDiff = ScoreInit / 4;
 
-            si.Text = ScoreInit.ToString();
-            sd.Text = ScoreDiff.ToString();
-            re.Text = ((ndk[0] * ScoreInit + ndk[1] * ScoreInit + ndk[1] * ScoreDiff + ndk[2] * ScoreInit + ndk[2] * ScoreDiff * 2 + ndk[3] * ScoreInit + ndk[3] * ScoreDiff * 4 + ndk[4] * ScoreInit + ndk[4] * ScoreDiff * 8 + ntdk[0] * ScoreInit * 2 + (ntdk[1] * ScoreInit + ntdk[1] * ScoreDiff) * 2 + (ntdk[2] * ScoreInit + ntdk[2] * ScoreDiff * 2) * 2 + (ntdk[3] * ScoreInit + ntdk[3] * ScoreDiff * 4) * 2 + (ntdk[4] * ScoreInit + ntdk[4] * ScoreDiff * 8) * 2 +
-                gdk[0] * ScoreInit * 12 / 10 + (gdk[1] * ScoreInit + gdk[1] * ScoreDiff) * 12 / 10 + (gdk[2] * ScoreInit + gdk[2] * ScoreDiff * 2) * 12 / 10 + (gdk[3] * ScoreInit + gdk[3] * ScoreDiff * 4) * 12 / 10 + (gdk[4] * ScoreInit + gdk[4] * ScoreDiff * 8) * 12 / 10 + (gtdk[0] * ScoreInit) * 2 * 12 / 10 + (gtdk[1] * ScoreInit + gtdk[1] * ScoreDiff) * 2 * 12 / 10 + (gtdk[2] * ScoreInit + gtdk[2] * ScoreDiff * 2) * 2 * 12 / 10 + (gtdk[3] * ScoreInit + gtdk[3] * ScoreDiff * 4) * 2 * 12 / 10 + (gtdk[4] * ScoreInit + gtdk[4] * ScoreDiff * 8) * 2 * 12 / 10) + (ComboBonus * 10000 + baSum[0] * 5000 + baSum[1] * 6000 + baAmount[0] * 300 + baAmount[1] * 300)).ToString();
+                si.Text = ScoreInit.ToString();
+                sd.Text = ScoreDiff.ToString();
+                re.Text = ((ndk[0] * ScoreInit + ndk[1] * ScoreInit + ndk[1] * ScoreDiff + ndk[2] * ScoreInit + ndk[2] * ScoreDiff * 2 + ndk[3] * ScoreInit + ndk[3] * ScoreDiff * 4 + ndk[4] * ScoreInit + ndk[4] * ScoreDiff * 8 + ntdk[0] * ScoreInit * 2 + (ntdk[1] * ScoreInit + ntdk[1] * ScoreDiff) * 2 + (ntdk[2] * ScoreInit + ntdk[2] * ScoreDiff * 2) * 2 + (ntdk[3] * ScoreInit + ntdk[3] * ScoreDiff * 4) * 2 + (ntdk[4] * ScoreInit + ntdk[4] * ScoreDiff * 8) * 2 +
+                    gdk[0] * ScoreInit * 12 / 10 + (gdk[1] * ScoreInit + gdk[1] * ScoreDiff) * 12 / 10 + (gdk[2] * ScoreInit + gdk[2] * ScoreDiff * 2) * 12 / 10 + (gdk[3] * ScoreInit + gdk[3] * ScoreDiff * 4) * 12 / 10 + (gdk[4] * ScoreInit + gdk[4] * ScoreDiff * 8) * 12 / 10 + (gtdk[0] * ScoreInit) * 2 * 12 / 10 + (gtdk[1] * ScoreInit + gtdk[1] * ScoreDiff) * 2 * 12 / 10 + (gtdk[2] * ScoreInit + gtdk[2] * ScoreDiff * 2) * 2 * 12 / 10 + (gtdk[3] * ScoreInit + gtdk[3] * ScoreDiff * 4) * 2 * 12 / 10 + (gtdk[4] * ScoreInit + gtdk[4] * ScoreDiff * 8) * 2 * 12 / 10) + (ComboBonus * 10000 + baSum[0] * 5000 + baSum[1] * 6000 + baAmount[0] * 300 + baAmount[1] * 300)).ToString();
+                textBox1.Text = ScoreUD.Value.ToString();
 
+            }
         }
 
     }
