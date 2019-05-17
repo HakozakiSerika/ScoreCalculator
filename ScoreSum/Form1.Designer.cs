@@ -72,6 +72,7 @@
             this.Diff比率 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).BeginInit();
             this.SuspendLayout();
@@ -559,11 +560,21 @@
             this.linkLabel1.Text = "@yume1610rein";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(897, 339);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(160, 12);
+            this.label9.TabIndex = 57;
+            this.label9.Text = "バグ、不具合報告はこちらに！→";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 360);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.Diff比率);
@@ -664,6 +675,7 @@
         private System.Windows.Forms.NumericUpDown Diff比率;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label9;
     }
 }
 
