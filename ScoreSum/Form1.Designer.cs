@@ -77,9 +77,9 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("07ロゴたいぷゴシック7", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button1.Font = new System.Drawing.Font("メイリオ", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button1.Location = new System.Drawing.Point(9, 219);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(582, 131);
             this.button1.TabIndex = 0;
@@ -140,7 +140,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(629, 12);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -460,7 +460,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(454, 175);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(136, 39);
             this.button2.TabIndex = 51;
@@ -477,7 +477,7 @@
             0,
             0});
             this.ScoreUD.Location = new System.Drawing.Point(458, 90);
-            this.ScoreUD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ScoreUD.Margin = new System.Windows.Forms.Padding(2);
             this.ScoreUD.Maximum = new decimal(new int[] {
             2000000,
             0,
@@ -535,6 +535,7 @@
             0,
             0,
             0});
+            this.Diff比率.Visible = false;
             // 
             // label7
             // 
@@ -544,6 +545,7 @@
             this.label7.Size = new System.Drawing.Size(54, 12);
             this.label7.TabIndex = 55;
             this.label7.Text = "DIFF比率";
+            this.label7.Visible = false;
             // 
             // Form1
             // 
@@ -593,7 +595,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "TJAScoreCalculator";
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).EndInit();

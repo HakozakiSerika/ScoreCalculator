@@ -64,6 +64,7 @@ namespace ScoreSum
                     n9 = tja.IndexOf("#START");
                     n10 = tja.IndexOf("#END");
 
+                    str[2] += tja + Environment.NewLine;
 
                     if (n9 >= 0)
                     {
@@ -580,7 +581,7 @@ namespace ScoreSum
                     sd.Text = ScoreDiff.ToString();
                     re.Text = ((ndk[0] * ScoreInit + ndk[1] * ScoreInit + ndk[1] * ScoreDiff + ndk[2] * ScoreInit + ndk[2] * ScoreDiff * 2 + ndk[3] * ScoreInit + ndk[3] * ScoreDiff * 4 + ndk[4] * ScoreInit + ndk[4] * ScoreDiff * 8 + ntdk[0] * ScoreInit * 2 + (ntdk[1] * ScoreInit + ntdk[1] * ScoreDiff) * 2 + (ntdk[2] * ScoreInit + ntdk[2] * ScoreDiff * 2) * 2 + (ntdk[3] * ScoreInit + ntdk[3] * ScoreDiff * 4) * 2 + (ntdk[4] * ScoreInit + ntdk[4] * ScoreDiff * 8) * 2 +
                         gdk[0] * ScoreInit * 12 / 10 + (gdk[1] * ScoreInit + gdk[1] * ScoreDiff) * 12 / 10 + (gdk[2] * ScoreInit + gdk[2] * ScoreDiff * 2) * 12 / 10 + (gdk[3] * ScoreInit + gdk[3] * ScoreDiff * 4) * 12 / 10 + (gdk[4] * ScoreInit + gdk[4] * ScoreDiff * 8) * 12 / 10 + (gtdk[0] * ScoreInit) * 2 * 12 / 10 + (gtdk[1] * ScoreInit + gtdk[1] * ScoreDiff) * 2 * 12 / 10 + (gtdk[2] * ScoreInit + gtdk[2] * ScoreDiff * 2) * 2 * 12 / 10 + (gtdk[3] * ScoreInit + gtdk[3] * ScoreDiff * 4) * 2 * 12 / 10 + (gtdk[4] * ScoreInit + gtdk[4] * ScoreDiff * 8) * 2 * 12 / 10) + (ComboBonus * 10000 + baSum[0] * 5000 + baSum[1] * 6000 + baAmount[0] * 300 + baAmount[1] * 300)).ToString();
-                    textBox1.Text = ScoreUD.Value.ToString();
+                    textBox1.Text = str[2].ToString();
 
                     button1.Visible = false;
                     label1.Text = ofd.FileName;
@@ -715,13 +716,12 @@ namespace ScoreSum
                 sd.Text = ScoreDiff.ToString();
                 re.Text = ((ndk[0] * ScoreInit + ndk[1] * ScoreInit + ndk[1] * ScoreDiff + ndk[2] * ScoreInit + ndk[2] * ScoreDiff * 2 + ndk[3] * ScoreInit + ndk[3] * ScoreDiff * 4 + ndk[4] * ScoreInit + ndk[4] * ScoreDiff * 8 + ntdk[0] * ScoreInit * 2 + (ntdk[1] * ScoreInit + ntdk[1] * ScoreDiff) * 2 + (ntdk[2] * ScoreInit + ntdk[2] * ScoreDiff * 2) * 2 + (ntdk[3] * ScoreInit + ntdk[3] * ScoreDiff * 4) * 2 + (ntdk[4] * ScoreInit + ntdk[4] * ScoreDiff * 8) * 2 +
                     gdk[0] * ScoreInit * 12 / 10 + (gdk[1] * ScoreInit + gdk[1] * ScoreDiff) * 12 / 10 + (gdk[2] * ScoreInit + gdk[2] * ScoreDiff * 2) * 12 / 10 + (gdk[3] * ScoreInit + gdk[3] * ScoreDiff * 4) * 12 / 10 + (gdk[4] * ScoreInit + gdk[4] * ScoreDiff * 8) * 12 / 10 + (gtdk[0] * ScoreInit) * 2 * 12 / 10 + (gtdk[1] * ScoreInit + gtdk[1] * ScoreDiff) * 2 * 12 / 10 + (gtdk[2] * ScoreInit + gtdk[2] * ScoreDiff * 2) * 2 * 12 / 10 + (gtdk[3] * ScoreInit + gtdk[3] * ScoreDiff * 4) * 2 * 12 / 10 + (gtdk[4] * ScoreInit + gtdk[4] * ScoreDiff * 8) * 2 * 12 / 10) + (ComboBonus * 10000 + baSum[0] * 5000 + baSum[1] * 6000 + baAmount[0] * 300 + baAmount[1] * 300)).ToString();
-                textBox1.Text = ScoreUD.Value.ToString();
 
             }
         }
         #region 定義
         private string tja = null, tjacom = null; //読み込み用変数 tjacomはコメントがついている行の処理用
-        private string[] str = new string[2] { null, null }; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用
+        private string[] str = new string[3] { null, null, null}; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用 2:表示用
         private string[] scoreStr = new string[2] { null, null }; //0や5～9がない「ノーツのみ」のものを作る用
         private int nballoonEnumCount = 0, nbEComp = 0; //これなんだっけ...
         private bool[] bbalgogo = new bool[999]; //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
