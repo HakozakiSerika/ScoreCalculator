@@ -71,6 +71,7 @@
             this.スコア基準 = new System.Windows.Forms.Label();
             this.Diff比率 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).BeginInit();
             this.SuspendLayout();
@@ -547,11 +548,23 @@
             this.label7.Text = "DIFF比率";
             this.label7.Visible = false;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(1064, 339);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(83, 12);
+            this.linkLabel1.TabIndex = 56;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "@yume1610rein";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 360);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.Diff比率);
             this.Controls.Add(this.スコア基準);
@@ -650,6 +663,7 @@
         private System.Windows.Forms.Label スコア基準;
         private System.Windows.Forms.NumericUpDown Diff比率;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

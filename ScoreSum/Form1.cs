@@ -719,6 +719,16 @@ namespace ScoreSum
 
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //リンク先に移動したことにする
+            linkLabel1.LinkVisited = true;
+            //ブラウザで開く
+            System.Diagnostics.Process.Start("https://twitter.com/yume1610rein");
+        }
+
+
         #region 定義
         private string tja = null, tjacom = null; //読み込み用変数 tjacomはコメントがついている行の処理用
         private string[] str = new string[3] { null, null, null}; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用 2:表示用
@@ -739,6 +749,7 @@ namespace ScoreSum
 
         private int[] Nd = new int[5] { 0, 0, 0, 0, 0 };//N:非ゴーゴー G:ゴーゴー
         private int[] Nk = new int[5] { 0, 0, 0, 0, 0 };//d:ドン k:カッ t:特音符
+
         private int[] Ntd = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Ntk = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Gd = new int[5] { 0, 0, 0, 0, 0 };
