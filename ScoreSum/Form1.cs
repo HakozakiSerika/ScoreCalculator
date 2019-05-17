@@ -18,12 +18,7 @@ namespace ScoreSum
      ・マジクソコード
      ・Formアプリの作り方教わってないから抜けあるよ！多分
      ・ミスを見つけたら「ああ～...こいつもまだまだだな」って感じで修正してくれるとありがたいです
- 
- 
- 
- 
- 
- */
+     */
 
 
 
@@ -32,41 +27,41 @@ namespace ScoreSum
 {
     public partial class Form1 : Form
     {
-        private string tja, tjacom;
-        private string[] str = new string[2] { null, null }; //0:総ノーツ用 1:GOGO判別用
-        private string[] scoreStr = new string[2] {null,null };
-        private string strb = null;
-        private int nballoonEnumCount = 0, nbEComp = 0;
-        private bool[] bbalgogo = new bool[999];
-        private string strballoon, balloon, strlevel;
-        private int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, nGoGoCount;
+        private string tja = null, tjacom = null; //読み込み用変数 tjacomはコメントがついている行の処理用
+        private string[] str = new string[2] { null, null }; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用
+        private string[] scoreStr = new string[2] {null,null }; //0や5～9がない「ノーツのみ」のものを作る用
+        private int nballoonEnumCount = 0, nbEComp = 0; //これなんだっけ...
+        private bool[] bbalgogo = new bool[999]; //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
+        private string strballoon, balloon, strlevel; //ヘッダ情報抜き出し用。
+        private int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, nGoGoCount; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
+        private int balloonCount, level; //風船の数を数える。
+        private bool bGogo, bStart, bEnd;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
 
-        private int balloonCount, level;
-        private bool bGogo, bStart, bEnd;
         private string[] tja12 = new string[2] { null, null };//1,2のみの譜面。3,4は0に置き換え
         private string[] tja34 = new string[2] { null, null };//3,4のみの譜面。1,2は0に置き換え
         private string[] tja0 = new string[2] { null, null };//最大コンボ数の数だけ0が出力される文字列。これ使えないかなあ...
-        private int[] Nd = new int[5] { 0, 0, 0, 0, 0 };
-        private int[] Nk = new int[5] { 0, 0, 0, 0, 0 };
+
+        private string[] NORMALCombo = new string[5] { null, null, null, null, null };//譜面解析用
+        private string[] GOGOCombo = new string[5] { null, null, null, null, null };
+
+        private int[] Nd = new int[5] { 0, 0, 0, 0, 0 };//N:非ゴーゴー G:ゴーゴー
+        private int[] Nk = new int[5] { 0, 0, 0, 0, 0 };//d:ドン k:カッ t:特音符
         private int[] Ntd = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Ntk = new int[5] { 0, 0, 0, 0, 0 };
-
-
-
         private int[] Gd = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Gk = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Gtd = new int[5] { 0, 0, 0, 0, 0 };
         private int[] Gtk = new int[5] { 0, 0, 0, 0, 0 };
-        private int[] ndk = new int[5] { 0, 0, 0, 0, 0 }; //普通小音符
-        private int[] ntdk = new int[5] { 0, 0, 0, 0, 0 };//普通大音符
 
-        private int[] gdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー小音符
-        private int[] gtdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー大音符
-        private int[] baSum = new int[2] { 0, 0 };
-        private int[] baAmount = new int[2] { 0, 0 };
-        private string[] NORMALCombo = new string[5] { null, null, null, null, null };
-        private string[] GOGOCombo = new string[5] { null, null, null, null, null };
-        private int ScoreInit = 0, ScoreDiff = 0 ,Score = 0, ComboBonus = 0, ScoreCor = 0;
+        private int[] ndk = new int[5] { 0, 0, 0, 0, 0 }; //普通小音符合計
+        private int[] ntdk = new int[5] { 0, 0, 0, 0, 0 };//普通大音符合計
+        private int[] gdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー小音符合計
+        private int[] gtdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー大音符合計
+
+        private int[] baSum = new int[2] { 0, 0 };//風船個数
+        private int[] baAmount = new int[2] { 0, 0 };//風船打数
+
+        private int ScoreInit = 0, ScoreDiff = 0 ,Score = 0, ComboBonus = 0; //スコア計算用
         private bool b = false;
 
 
@@ -122,10 +117,12 @@ namespace ScoreSum
                     {
                         bEnd = true;
                     }
+
                     if (n3 >= 0)
                     {
                         tjacom = tja.Remove(n3);
                     }
+
                     if (!bEnd)
                     {
                         if (n4 >= 0)
@@ -189,14 +186,6 @@ namespace ScoreSum
                         {
                             if (n3 >= 0)
                             {
-                                strb += tjacom + Environment.NewLine;
-                            }
-                            else
-                            {
-                                strb += tja + Environment.NewLine;
-                            }
-                            if (n3 >= 0)
-                            {
                                 nballoonEnumCount += CountChar(tjacom, '7');
                             }
                             else
@@ -252,7 +241,6 @@ namespace ScoreSum
                     balAmount[1] = 0;
                 }
 
-                //balAmount = 
                 string[] gogo = new string[nGoGoCount];
                 string[] normal = new string[nGoGoCount];
 
@@ -730,7 +718,6 @@ namespace ScoreSum
             tjacom = null;
             str[0] = null;
             str[1] = null;
-            strb = null;
             nballoonEnumCount = 0;
             nbEComp = 0;
             for (int i = 0; i < 999; i++)
