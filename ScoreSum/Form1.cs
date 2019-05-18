@@ -581,7 +581,7 @@ namespace ScoreSum
 
 
 
-                    while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)) < Score)
+                    while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)) < Score)
                     {
                         int n;
                         diff用 += 1;
@@ -615,7 +615,7 @@ namespace ScoreSum
                     }
                     si.Text = ScoreInit.ToString();
                     sd.Text = ScoreDiff.ToString();
-                    re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
+                    re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
                     basum0.Text = baSum[0].ToString();
                     basum1.Text = baSum[1].ToString();
                     baamount0.Text = baAmount[0].ToString();
@@ -777,7 +777,7 @@ namespace ScoreSum
                 ScoreDiff = 0;
                 diff用 = 0;
 
-                while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)) < Score)
+                while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)) < Score)
                 {
                     diff用 += 1;
                     ScoreDiff = diff用 / 4;
@@ -809,7 +809,7 @@ namespace ScoreSum
 
                 si.Text = ScoreInit.ToString();
                 sd.Text = ScoreDiff.ToString();
-                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
+                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
                 string s = null;
                 for (int j = 0; j < 5; j++)
                 {
@@ -874,7 +874,7 @@ namespace ScoreSum
 
                 si.Text = ScoreInit.ToString();
                 sd.Text = ScoreDiff.ToString();
-                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
+                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
 
                 string s = null;
                 for (int j = 0; j < 5; j++)
@@ -934,7 +934,7 @@ namespace ScoreSum
 
                 si.Text = ScoreInit.ToString();
                 sd.Text = ScoreDiff.ToString();
-                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
+                re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (baAmount[0] - baSum[0]) * 300 + (baAmount[1] - baSum[1]) * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
 
                 string s = null;
                 for (int j = 0; j < 5; j++)
