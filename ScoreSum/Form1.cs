@@ -186,8 +186,7 @@ namespace ScoreSum
                         */
                     }
                 }
-                
-                balloonCount = CountChar(strballoon, ',') + 1;
+
                 balloon = strballoon.Replace("BALLOON:", "");
                 level = int.Parse(strlevel.Replace("LEVEL:", ""));
                 if (balloon != "")
@@ -197,6 +196,11 @@ namespace ScoreSum
                     balAmount[0] = 0;
                     balAmount[1] = 0;
                 }
+
+                if (balloon != "")
+                    balloonCount = CountChar(strballoon, ',') + 1;
+                else
+                    balloonCount = 0;
 
                 string[] gogo = new string[nGoGoCount];
                 string[] normal = new string[nGoGoCount];
@@ -579,83 +583,68 @@ namespace ScoreSum
 
                     while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)) < Score)
                     {
+                        int n;
                         diff用 += 1;
                         ScoreDiff = diff用 / 4;
                         if (diff用 % 10 == 0)
                             ScoreInit += 10;
 
-                        calNdk[0] = (ndk[0] * (ScoreInit - ScoreInit % 10));
-                        calNdk[1] = (ndk[1] * ScoreInit + ndk[1] * (ScoreDiff - ScoreDiff % 10));
-                        calNdk[2] = (ndk[2] * ScoreInit + ndk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10));
-                        calNdk[3] = (ndk[3] * ScoreInit + ndk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10));
-                        calNdk[4] = (ndk[4] * ScoreInit + ndk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10));
-                        calNtdk[0] = (ntdk[0] * (ScoreInit - ScoreInit % 10)) * 2;
-                        calNtdk[1] = (ntdk[1] * ScoreInit + ntdk[1] * (ScoreDiff - ScoreDiff % 10)) * 2;
-                        calNtdk[2] = (ntdk[2] * ScoreInit + ntdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 2;
-                        calNtdk[3] = (ntdk[3] * ScoreInit + ntdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 2;
-                        calNtdk[4] = (ntdk[4] * ScoreInit + ntdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 2;
+                        calNdk[0] = ndk[0] * (ScoreInit - ScoreInit % 10);
+                        calNdk[1] = ndk[1] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                        calNdk[2] = ndk[2] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                        calNdk[3] = ndk[3] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                        calNdk[4] = ndk[4] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
+                        calNtdk[0] = ntdk[0] * 2 * (ScoreInit - ScoreInit % 10);
+                        calNtdk[1] = ntdk[1] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                        calNtdk[2] = ntdk[2] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                        calNtdk[3] = ntdk[3] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                        calNtdk[4] = ntdk[4] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
 
-                        calGdk[0] = (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10;
-                        calGdk[1] = (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10;
-                        calGdk[2] = (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10;
-                        calGdk[3] = (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10;
-                        calGdk[4] = (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10;
-                        calGtdk[0] = ((gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10) * 2;
-                        calGtdk[1] = ((gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10) * 2;
-                        calGtdk[2] = ((gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10) * 2;
-                        calGtdk[3] = ((gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10) * 2;
-                        calGtdk[4] = ((gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10) * 2;
+                        calGdk[0] = gdk[0] * (((ScoreInit - ScoreInit % 10) * 12 / 10) - (ScoreInit - (ScoreInit % 10) * 12 / 10) % 10);
+                        calGdk[1] = gdk[1] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10);
+                        calGdk[2] = gdk[2] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10);
+                        calGdk[3] = gdk[3] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10);
+                        calGdk[4] = gdk[4] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10);
+                        calGtdk[0] = gtdk[0] * 2 * (((ScoreInit - ScoreInit % 10) * 12 / 10) - ((ScoreInit - ScoreInit % 10) * 12 / 10 % 10));
+                        calGtdk[1] = gtdk[1] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10));
+                        calGtdk[2] = gtdk[2] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10));
+                        calGtdk[3] = gtdk[3] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10));
+                        calGtdk[4] = gtdk[4] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10));
 
 
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    /*
-                    ScoreInit = (Score - ComboBonus * 10000 - baSum[0] * 5000 - baSum[1] * 6000 - baAmount[0] * 300 - baAmount[1] * 300) /
-                    (ndk[0] + ndk[1] * 5 / 4 + ndk[2] * 3 / 2 + ndk[3] * 2 + ndk[4] * 3 + ntdk[0] * 2 + ntdk[1] * 2 * 5 / 4 + ntdk[2] * 2 * 3 / 2 + ntdk[3] * 2 * 2 + ntdk[4] * 2 * 3 +
-                    gdk[0] * 12 / 10 + gdk[1] * 12 / 10 * 5 / 4 + gdk[2] * 12 / 10 * 3 / 2 + gdk[3] * 12 / 10 * 2 + gdk[4] * 12 / 10 * 3 + gtdk[0] * 12 / 10 * 2 + gtdk[1] * 12 / 10 * 2 * 5 / 4 + gtdk[2] * 12 / 10 * 2 * 3 / 2 + gtdk[3] * 12 / 10 * 2 * 2 + gtdk[4] * 12 / 10 * 2 * 3);
-                    */
-
-                    //ScoreDiff = ScoreInit / 4 - (ScoreInit / 4) % 10;
-
                     si.Text = ScoreInit.ToString();
                     sd.Text = ScoreDiff.ToString();
                     re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
+                    basum0.Text = baSum[0].ToString();
+                    basum1.Text = baSum[1].ToString();
+                    baamount0.Text = baAmount[0].ToString();
+                    baamount1.Text = baAmount[1].ToString();
+
 
                     string s = null;
-                    for (int i = 0; i < 5; i++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        s += "calNdk[" + i.ToString() + "]=" + calNdk[i].ToString() + Environment.NewLine;
-                        s += "calNtdk[" + i.ToString() + "]=" + calNtdk[i].ToString() + Environment.NewLine;
-                        s += "calGdk[" + i.ToString() + "]=" + calGdk[i].ToString() + Environment.NewLine;
-                        s += "calGtdk[" + i.ToString() + "]=" + calGtdk[i].ToString() + Environment.NewLine;
-
+                        if (ndk[j] != 0)
+                            s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
+                        else
+                            s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                        if (ntdk[j] != 0)
+                            s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
+                        else
+                            s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                        if (gdk[j] != 0)
+                            s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
+                        else
+                            s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                        if (gtdk[j] != 0)
+                            s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
+                        else
+                            s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
                     }
-                    textBox1.Text = s;
+                    textBox1.Text = RemoveGogo[nGoGoCount].ToString();
                     button1.Visible = false;
-                    label1.Text = ofd.FileName;
+                    label1.Text = ofd.SafeFileName;
                     b = true;
                 }
 
@@ -795,40 +784,51 @@ namespace ScoreSum
                     if (diff用 % 10 == 0)
                         ScoreInit += 10;
 
-                    calNdk[0] = (ndk[0] * (ScoreInit - ScoreInit % 10));
-                    calNdk[1] = (ndk[1] * ScoreInit + ndk[1] * (ScoreDiff - ScoreDiff % 10));
-                    calNdk[2] = (ndk[2] * ScoreInit + ndk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10));
-                    calNdk[3] = (ndk[3] * ScoreInit + ndk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10));
-                    calNdk[4] = (ndk[4] * ScoreInit + ndk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10));
-                    calNtdk[0] = (ntdk[0] * (ScoreInit - ScoreInit % 10)) * 2;
-                    calNtdk[1] = (ntdk[1] * ScoreInit + ntdk[1] * (ScoreDiff - ScoreDiff % 10)) * 2;
-                    calNtdk[2] = (ntdk[2] * ScoreInit + ntdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 2;
-                    calNtdk[3] = (ntdk[3] * ScoreInit + ntdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 2;
-                    calNtdk[4] = (ntdk[4] * ScoreInit + ntdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 2;
+                    calNdk[0] = ndk[0] * (ScoreInit - ScoreInit % 10);
+                    calNdk[1] = ndk[1] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                    calNdk[2] = ndk[2] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                    calNdk[3] = ndk[3] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                    calNdk[4] = ndk[4] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
+                    calNtdk[0] = ntdk[0] * 2 * (ScoreInit - ScoreInit % 10);
+                    calNtdk[1] = ntdk[1] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                    calNtdk[2] = ntdk[2] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                    calNtdk[3] = ntdk[3] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                    calNtdk[4] = ntdk[4] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
 
-                    calGdk[0] = (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10;
-                    calGdk[1] = (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10;
-                    calGdk[2] = (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10;
-                    calGdk[3] = (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10;
-                    calGdk[4] = (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10;
-                    calGtdk[0] = ((gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10) * 2;
-                    calGtdk[1] = ((gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10) * 2;
-                    calGtdk[2] = ((gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10) * 2;
-                    calGtdk[3] = ((gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10) * 2;
-                    calGtdk[4] = ((gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10) * 2;
+                    calGdk[0] = gdk[0] * (((ScoreInit - ScoreInit % 10) * 12 / 10) - (ScoreInit - (ScoreInit % 10) * 12 / 10) % 10);
+                    calGdk[1] = gdk[1] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10);
+                    calGdk[2] = gdk[2] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10);
+                    calGdk[3] = gdk[3] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10);
+                    calGdk[4] = gdk[4] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10);
+                    calGtdk[0] = gtdk[0] * 2 * (((ScoreInit - ScoreInit % 10) * 12 / 10) - ((ScoreInit - ScoreInit % 10) * 12 / 10 % 10));
+                    calGtdk[1] = gtdk[1] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10));
+                    calGtdk[2] = gtdk[2] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10));
+                    calGtdk[3] = gtdk[3] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10));
+                    calGtdk[4] = gtdk[4] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10));
                 }
 
                 si.Text = ScoreInit.ToString();
                 sd.Text = ScoreDiff.ToString();
                 re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
                 string s = null;
-                for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
                 {
-                    s += "calNdk[" + i.ToString() + "]=" + calNdk[i].ToString() + Environment.NewLine;
-                    s += "calNtdk[" + i.ToString() + "]=" + calNtdk[i].ToString() + Environment.NewLine;
-                    s += "calGdk[" + i.ToString() + "]=" + calGdk[i].ToString() + Environment.NewLine;
-                    s += "calGtdk[" + i.ToString() + "]=" + calGtdk[i].ToString() + Environment.NewLine;
-
+                    if (ndk[j] != 0)
+                        s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (ntdk[j] != 0)
+                        s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gdk[j] != 0)
+                        s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gtdk[j] != 0)
+                        s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
                 }
                 textBox1.Text = s;
 
@@ -845,46 +845,56 @@ namespace ScoreSum
 
         private void INITM_TextChanged(object sender, EventArgs e)
         {
-            int n = 0;
-            bool b = int.TryParse(INITM.Text, out n);
+            int i = 0;
+            bool b = int.TryParse(INITM.Text, out i);
             if (b)
             {
-                ScoreInit = n;
+                ScoreInit = i;
+                calNdk[0] = ndk[0] * (ScoreInit - ScoreInit % 10);
+                calNdk[1] = ndk[1] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                calNdk[2] = ndk[2] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                calNdk[3] = ndk[3] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                calNdk[4] = ndk[4] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
+                calNtdk[0] = ntdk[0] * 2 * (ScoreInit - ScoreInit % 10);
+                calNtdk[1] = ntdk[1] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                calNtdk[2] = ntdk[2] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                calNtdk[3] = ntdk[3] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                calNtdk[4] = ntdk[4] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
 
-                calNdk[0] = (ndk[0] * (ScoreInit - ScoreInit % 10));
-                calNdk[1] = (ndk[1] * ScoreInit + ndk[1] * (ScoreDiff - ScoreDiff % 10));
-                calNdk[2] = (ndk[2] * ScoreInit + ndk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10));
-                calNdk[3] = (ndk[3] * ScoreInit + ndk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10));
-                calNdk[4] = (ndk[4] * ScoreInit + ndk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10));
-                calNtdk[0] = (ntdk[0] * (ScoreInit - ScoreInit % 10)) * 2;
-                calNtdk[1] = (ntdk[1] * ScoreInit + ntdk[1] * (ScoreDiff - ScoreDiff % 10)) * 2;
-                calNtdk[2] = (ntdk[2] * ScoreInit + ntdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 2;
-                calNtdk[3] = (ntdk[3] * ScoreInit + ntdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 2;
-                calNtdk[4] = (ntdk[4] * ScoreInit + ntdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 2;
-
-                calGdk[0] = (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10;
-                calGdk[1] = (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10;
-                calGdk[2] = (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10;
-                calGdk[3] = (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10;
-                calGdk[4] = (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10;
-                calGtdk[0] = ((gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[1] = ((gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[2] = ((gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[3] = ((gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[4] = ((gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10) * 2;
-
+                calGdk[0] = gdk[0] * (((ScoreInit - ScoreInit % 10) * 12 / 10) - (ScoreInit - (ScoreInit % 10) * 12 / 10) % 10);
+                calGdk[1] = gdk[1] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10);
+                calGdk[2] = gdk[2] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10);
+                calGdk[3] = gdk[3] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10);
+                calGdk[4] = gdk[4] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10);
+                calGtdk[0] = gtdk[0] * 2 * (((ScoreInit - ScoreInit % 10) * 12 / 10) - ((ScoreInit - ScoreInit % 10) * 12 / 10 % 10));
+                calGtdk[1] = gtdk[1] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10));
+                calGtdk[2] = gtdk[2] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10));
+                calGtdk[3] = gtdk[3] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10));
+                calGtdk[4] = gtdk[4] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10));
 
                 si.Text = ScoreInit.ToString();
                 sd.Text = ScoreDiff.ToString();
                 re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
 
                 string s = null;
-                for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
                 {
-                    s += "calNdk[" + i.ToString() + "]=" + calNdk[i].ToString() + Environment.NewLine;
-                    s += "calNtdk[" + i.ToString() + "]=" + calNtdk[i].ToString() + Environment.NewLine;
-                    s += "calGdk[" + i.ToString() + "]=" + calGdk[i].ToString() + Environment.NewLine;
-                    s += "calGtdk[" + i.ToString() + "]=" + calGtdk[i].ToString() + Environment.NewLine;
+                    if (ndk[j] != 0)
+                        s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (ntdk[j] != 0)
+                        s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gdk[j] != 0)
+                        s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gtdk[j] != 0)
+                        s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
 
                 }
                 textBox1.Text = s;
@@ -893,33 +903,33 @@ namespace ScoreSum
         }
         private void DIFFM_TextChanged(object sender, EventArgs e)
         {
-            int n = 0;
-            bool b = int.TryParse(DIFFM.Text, out n);
+            int i = 0;
+            bool b = int.TryParse(DIFFM.Text, out i);
             if (b)
             {
-                ScoreDiff = n;
+                ScoreDiff = i;
 
-                calNdk[0] = (ndk[0] * (ScoreInit - ScoreInit % 10));
-                calNdk[1] = (ndk[1] * ScoreInit + ndk[1] * (ScoreDiff - ScoreDiff % 10));
-                calNdk[2] = (ndk[2] * ScoreInit + ndk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10));
-                calNdk[3] = (ndk[3] * ScoreInit + ndk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10));
-                calNdk[4] = (ndk[4] * ScoreInit + ndk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10));
-                calNtdk[0] = (ntdk[0] * (ScoreInit - ScoreInit % 10)) * 2;
-                calNtdk[1] = (ntdk[1] * ScoreInit + ntdk[1] * (ScoreDiff - ScoreDiff % 10)) * 2;
-                calNtdk[2] = (ntdk[2] * ScoreInit + ntdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 2;
-                calNtdk[3] = (ntdk[3] * ScoreInit + ntdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 2;
-                calNtdk[4] = (ntdk[4] * ScoreInit + ntdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 2;
+                calNdk[0] = ndk[0] * (ScoreInit - ScoreInit % 10);
+                calNdk[1] = ndk[1] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                calNdk[2] = ndk[2] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                calNdk[3] = ndk[3] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                calNdk[4] = ndk[4] * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
+                calNtdk[0] = ntdk[0] * 2 * (ScoreInit - ScoreInit % 10);
+                calNtdk[1] = ntdk[1] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff - ScoreDiff % 10));
+                calNtdk[2] = ntdk[2] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 2 - ScoreDiff * 2 % 10));
+                calNtdk[3] = ntdk[3] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
+                calNtdk[4] = ntdk[4] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
 
-                calGdk[0] = (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10;
-                calGdk[1] = (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gdk[1] * ScoreInit + gdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10;
-                calGdk[2] = (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gdk[2] * ScoreInit + gdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10;
-                calGdk[3] = (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gdk[3] * ScoreInit + gdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10;
-                calGdk[4] = (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gdk[4] * ScoreInit + gdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10;
-                calGtdk[0] = ((gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 - (gtdk[0] * (ScoreInit - ScoreInit % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[1] = ((gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 - (gtdk[1] * ScoreInit + gtdk[1] * (ScoreDiff - ScoreDiff % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[2] = ((gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 - (gtdk[2] * ScoreInit + gtdk[2] * (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[3] = ((gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 - (gtdk[3] * ScoreInit + gtdk[3] * (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10 % 10) * 2;
-                calGtdk[4] = ((gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 - (gtdk[4] * ScoreInit + gtdk[4] * (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10 % 10) * 2;
+                calGdk[0] = gdk[0] * (((ScoreInit - ScoreInit % 10) * 12 / 10) - (ScoreInit - (ScoreInit % 10) * 12 / 10) % 10);
+                calGdk[1] = gdk[1] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10);
+                calGdk[2] = gdk[2] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10);
+                calGdk[3] = gdk[3] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10);
+                calGdk[4] = gdk[4] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10);
+                calGtdk[0] = gtdk[0] * 2 * (((ScoreInit - ScoreInit % 10) * 12 / 10) - ((ScoreInit - ScoreInit % 10) * 12 / 10 % 10));
+                calGtdk[1] = gtdk[1] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10));
+                calGtdk[2] = gtdk[2] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10));
+                calGtdk[3] = gtdk[3] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10));
+                calGtdk[4] = gtdk[4] * 2 * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) - (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 8 - ScoreDiff * 8 % 10)) * 12 / 10) % 10));
 
 
                 si.Text = ScoreInit.ToString();
@@ -927,12 +937,24 @@ namespace ScoreSum
                 re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + baAmount[0] * 300 + baAmount[1] * 360 + baSum[0] * 5000 + baSum[1] * 6000)).ToString();
 
                 string s = null;
-                for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
                 {
-                    s += "calNdk[" + i.ToString() + "]=" + calNdk[i].ToString() + Environment.NewLine;
-                    s += "calNtdk[" + i.ToString() + "]=" + calNtdk[i].ToString() + Environment.NewLine;
-                    s += "calGdk[" + i.ToString() + "]=" + calGdk[i].ToString() + Environment.NewLine;
-                    s += "calGtdk[" + i.ToString() + "]=" + calGtdk[i].ToString() + Environment.NewLine;
+                    if (ndk[j] != 0)
+                        s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (ntdk[j] != 0)
+                        s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gdk[j] != 0)
+                        s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
+                    if (gtdk[j] != 0)
+                        s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
+                    else
+                        s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
 
                 }
                 textBox1.Text = s;
