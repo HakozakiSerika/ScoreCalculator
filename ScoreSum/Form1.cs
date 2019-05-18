@@ -642,7 +642,7 @@ namespace ScoreSum
                         else
                             s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
                     }
-                    textBox1.Text = s;
+                    textBox1.Text = str[2];
                     button1.Visible = false;
                     label1.Text = ofd.SafeFileName;
                     b = true;
@@ -830,7 +830,7 @@ namespace ScoreSum
                     else
                         s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
                 }
-                textBox1.Text = s;
+                //textBox1.Text = s;
 
             }
         }
@@ -897,7 +897,7 @@ namespace ScoreSum
                         s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
 
                 }
-                textBox1.Text = s;
+                //textBox1.Text = s;
 
             }
         }
@@ -957,7 +957,7 @@ namespace ScoreSum
                         s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
 
                 }
-                textBox1.Text = s;
+                //textBox1.Text = s;
 
             }
         }
