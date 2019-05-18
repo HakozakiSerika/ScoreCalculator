@@ -642,7 +642,7 @@ namespace ScoreSum
                         else
                             s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
                     }
-                    textBox1.Text = RemoveGogo[nGoGoCount].ToString();
+                    textBox1.Text = s;
                     button1.Visible = false;
                     label1.Text = ofd.SafeFileName;
                     b = true;

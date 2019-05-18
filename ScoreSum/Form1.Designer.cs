@@ -672,7 +672,7 @@
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(49, 15);
             this.label21.TabIndex = 71;
-            this.label21.Text = "v 1.0.2";
+            this.label21.Text = "v 1.0.3";
             // 
             // Form1
             // 
