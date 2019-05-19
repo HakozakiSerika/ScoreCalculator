@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -426,7 +427,7 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 15);
             this.label13.TabIndex = 49;
-            this.label13.Text = "再計算=";
+            this.label13.Text = "天井点=";
             // 
             // re
             // 
@@ -672,7 +673,7 @@
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(49, 15);
             this.label21.TabIndex = 71;
-            this.label21.Text = "v 1.0.3";
+            this.label21.Text = "v 2.0.0";
             // 
             // Form1
             // 
@@ -738,6 +739,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "TJAScoreCalculator";
