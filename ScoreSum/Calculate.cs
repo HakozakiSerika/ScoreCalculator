@@ -8,8 +8,7 @@ namespace ScoreCalculator
 {
     class Calculate
     {
-        TJARead tjaRead = new TJARead();
-        public void Calculated()
+        public void Calculated(TJARead tjaRead)
         {
             if (!bFirstRead)
             {

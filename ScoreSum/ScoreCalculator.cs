@@ -40,7 +40,7 @@ namespace ScoreCalculator
         {
 
             tjaRead.TJAReader();
-            calculate.Calculated();
+            calculate.Calculated(tjaRead);
 
             TJAReader.Visible = false;
                     
