@@ -40,7 +40,7 @@ namespace ScoreCalculator
         {
 
             tjaRead.TJAReader();
-            calculate.Calculated();
+            calculate.Calculated(tjaRead);
 
             TJAReader.Visible = false;
                     
@@ -153,20 +153,20 @@ namespace ScoreCalculator
 
         private void INITM_ValueChanged(object sender, EventArgs e)
         {
-            scoreInit.ScoreInitValueChanged();
+            scoreInit.ScoreInitValueChanged(this, tjaRead);
         }
         private void INITM_TextChanged(object sender, EventArgs e)
         {
-            scoreInit.ScoreInitTextChanged();
+            scoreInit.ScoreInitTextChanged(this, tjaRead);
         }
 
         private void DIFFM_ValueChanged(object sender, EventArgs e)
         {
-            scoreDiff.ScoreDiffValueChanged();
+            scoreDiff.ScoreDiffValueChanged(this, tjaRead);
         }
         private void DIFFM_TextChanged(object sender, EventArgs e)
         {
-            scoreDiff.ScoreDiffTextChanged();
+            scoreDiff.ScoreDiffTextChanged(this, tjaRead);
         }
 
         private void Diff比率_ValueChanged(object sender, EventArgs e)
