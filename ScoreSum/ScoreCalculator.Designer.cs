@@ -1,6 +1,6 @@
-﻿namespace ScoreSum
+﻿namespace ScoreCalculator
 {
-    partial class Form1
+    partial class ScoreCal_Form1
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreCal_Form1));
+            this.TJAReader = new System.Windows.Forms.Button();
+            this.TJAName = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Total = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@
             this.SCOREDIFF = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.re = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Reset = new System.Windows.Forms.Button();
             this.ScoreUD = new System.Windows.Forms.NumericUpDown();
             this.スコア基準 = new System.Windows.Forms.Label();
             this.Diff比率 = new System.Windows.Forms.NumericUpDown();
@@ -89,26 +89,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.DIFFM)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // TJAReader
             // 
-            this.button1.Font = new System.Drawing.Font("メイリオ", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(12, 371);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(776, 164);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "TJAファイルを読み込む";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.TJAReader.Font = new System.Drawing.Font("メイリオ", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TJAReader.Location = new System.Drawing.Point(12, 371);
+            this.TJAReader.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TJAReader.Name = "TJAReader";
+            this.TJAReader.Size = new System.Drawing.Size(776, 164);
+            this.TJAReader.TabIndex = 0;
+            this.TJAReader.Text = "TJAファイルを読み込む";
+            this.TJAReader.UseVisualStyleBackColor = true;
+            this.TJAReader.Click += new System.EventHandler(this.TJAReader_Click);
             // 
-            // label1
+            // TJAName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(205, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "TJAファイルを読み込んでください。";
+            this.TJAName.AutoSize = true;
+            this.TJAName.Location = new System.Drawing.Point(16, 9);
+            this.TJAName.Name = "TJAName";
+            this.TJAName.Size = new System.Drawing.Size(205, 15);
+            this.TJAName.TabIndex = 1;
+            this.TJAName.Text = "TJAファイルを読み込んでください。";
             // 
             // label2
             // 
@@ -427,17 +427,16 @@
             this.re.TabIndex = 50;
             this.re.Text = "???";
             // 
-            // button2
+            // Reset
             // 
-            this.button2.Location = new System.Drawing.Point(607, 318);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(181, 49);
-            this.button2.TabIndex = 51;
-            this.button2.Text = "Reset!";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Reset.Location = new System.Drawing.Point(607, 318);
+            this.Reset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reset.Name = "Reset";
+            this.Reset.Size = new System.Drawing.Size(181, 49);
+            this.Reset.TabIndex = 51;
+            this.Reset.Text = "Reset!";
+            this.Reset.UseVisualStyleBackColor = true;
+            this.Reset.Visible = false;
             // 
             // ScoreUD
             // 
@@ -655,7 +654,7 @@
             this.DIFFM.TabIndex = 73;
             this.DIFFM.ValueChanged += new System.EventHandler(this.DIFFM_ValueChanged);
             // 
-            // Form1
+            // ScoreCal_Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -677,7 +676,7 @@
             this.Controls.Add(this.Diff比率);
             this.Controls.Add(this.スコア基準);
             this.Controls.Add(this.ScoreUD);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Reset);
             this.Controls.Add(this.re);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.SCOREDIFF);
@@ -712,11 +711,11 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.Total);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TJAName);
+            this.Controls.Add(this.TJAReader);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
+            this.Name = "ScoreCal_Form1";
             this.Text = "TJAScoreCalculator";
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).EndInit();
@@ -728,9 +727,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label TJAName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Total;
         private System.Windows.Forms.Label label16;
@@ -764,11 +761,8 @@
         private System.Windows.Forms.Label SCOREINIT;
         private System.Windows.Forms.Label SCOREDIFF;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label re;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.NumericUpDown ScoreUD;
+        private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.Label スコア基準;
-        private System.Windows.Forms.NumericUpDown Diff比率;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label9;
@@ -781,8 +775,12 @@
         private System.Windows.Forms.Label basum1;
         private System.Windows.Forms.Label baamount1;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown INITM;
-        private System.Windows.Forms.NumericUpDown DIFFM;
+        public System.Windows.Forms.Button TJAReader;
+        public System.Windows.Forms.NumericUpDown ScoreUD;
+        public System.Windows.Forms.NumericUpDown Diff比率;
+        public System.Windows.Forms.NumericUpDown INITM;
+        public System.Windows.Forms.NumericUpDown DIFFM;
+        public System.Windows.Forms.Label re;
     }
 }
 
