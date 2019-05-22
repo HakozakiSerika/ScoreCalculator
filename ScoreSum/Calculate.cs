@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ScoreCalculator
 {
     class Calculate
     {
-        public void Calculated(TJARead tjaRead)
+        public void Calculated(ScoreCal_Form1 mainForm, TJARead tjaRead)
         {
             if (!bFirstRead)
             {
@@ -58,7 +59,7 @@ namespace ScoreCalculator
                 }
                
                 ComboBonus = tjaRead.tja0[1].Length / 100;
-
+                mainForm.ScoreUD.Value = Score;
 
 
 
@@ -101,26 +102,40 @@ namespace ScoreCalculator
                     }
                 }
 
-                string s = null;
-                for (int j = 0; j < 5; j++)
-                {
-                    if (tjaRead.ndk[j] != 0)
-                        s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.ntdk[j] != 0)
-                        s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.gdk[j] != 0)
-                        s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.gtdk[j] != 0)
-                        s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                }
+                #region 1st読み込み後テキスト
+                mainForm.Total.Text = tjaRead.tja0[1].Length.ToString();
+                mainForm.Difficulty.Text = tjaRead.level.ToString();
+                mainForm.ndk0.Text = tjaRead.ndk[0].ToString();
+                mainForm.ndk1.Text = tjaRead.ndk[1].ToString();
+                mainForm.ndk2.Text = tjaRead.ndk[2].ToString();
+                mainForm.ndk3.Text = tjaRead.ndk[3].ToString();
+                mainForm.ndk4.Text = tjaRead.ndk[4].ToString();
+                mainForm.ntdk0.Text = tjaRead.ntdk[0].ToString();
+                mainForm.ntdk1.Text = tjaRead.ntdk[1].ToString();
+                mainForm.ntdk2.Text = tjaRead.ntdk[2].ToString();
+                mainForm.ntdk3.Text = tjaRead.ntdk[3].ToString();
+                mainForm.ntdk4.Text = tjaRead.ntdk[4].ToString();
+                mainForm.gdk0.Text = tjaRead.gdk[0].ToString();
+                mainForm.gdk1.Text = tjaRead.gdk[1].ToString();
+                mainForm.gdk2.Text = tjaRead.gdk[2].ToString();
+                mainForm.gdk3.Text = tjaRead.gdk[3].ToString();
+                mainForm.gdk4.Text = tjaRead.gdk[4].ToString();
+                mainForm.gtdk0.Text = tjaRead.gtdk[0].ToString();
+                mainForm.gtdk1.Text = tjaRead.gtdk[1].ToString();
+                mainForm.gtdk2.Text = tjaRead.gtdk[2].ToString();
+                mainForm.gtdk3.Text = tjaRead.gtdk[3].ToString();
+                mainForm.gtdk4.Text = tjaRead.gtdk[4].ToString();
+                mainForm.textBox1.Text = tjaRead.str[2];
+                mainForm.TJAName.Text = tjaRead.ofd.SafeFileName;
+                mainForm.INITM.Text = ScoreInit.ToString();
+                mainForm.DIFFM.Text = ScoreDiff.ToString();
+                mainForm.re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (tjaRead.baAmount[0] - tjaRead.baSum[0]) * 300 + (tjaRead.baAmount[1] - tjaRead.baSum[1]) * 360 + tjaRead.baSum[0] * 5000 + tjaRead.baSum[1] * 6000)).ToString();
+                mainForm.basum0.Text = tjaRead.baSum[0].ToString();
+                mainForm.basum1.Text = tjaRead.baSum[1].ToString();
+                mainForm.baamount0.Text = tjaRead.baAmount[0].ToString();
+                mainForm.baamount1.Text = tjaRead.baAmount[1].ToString();
+                #endregion
+
                 bFirstRead = true;
             }
 

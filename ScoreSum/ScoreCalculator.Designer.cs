@@ -727,36 +727,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label TJAName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label Total;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label Difficulty;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label ndk0;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label ntdk0;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label gdk0;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label gtdk0;
-        private System.Windows.Forms.Label ndk1;
-        private System.Windows.Forms.Label ntdk1;
-        private System.Windows.Forms.Label gdk1;
-        private System.Windows.Forms.Label gtdk1;
-        private System.Windows.Forms.Label ndk2;
-        private System.Windows.Forms.Label ntdk2;
-        private System.Windows.Forms.Label gdk2;
-        private System.Windows.Forms.Label gtdk2;
-        private System.Windows.Forms.Label ndk3;
-        private System.Windows.Forms.Label ntdk3;
-        private System.Windows.Forms.Label gdk3;
-        private System.Windows.Forms.Label gtdk3;
-        private System.Windows.Forms.Label ndk4;
-        private System.Windows.Forms.Label ntdk4;
-        private System.Windows.Forms.Label gdk4;
-        private System.Windows.Forms.Label gtdk4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label SCOREINIT;
         private System.Windows.Forms.Label SCOREDIFF;
@@ -768,12 +743,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label basum0;
-        private System.Windows.Forms.Label baamount0;
-        private System.Windows.Forms.Label basum1;
-        private System.Windows.Forms.Label baamount1;
         private System.Windows.Forms.Label label21;
         public System.Windows.Forms.Button TJAReader;
         public System.Windows.Forms.NumericUpDown ScoreUD;
@@ -781,6 +750,37 @@
         public System.Windows.Forms.NumericUpDown INITM;
         public System.Windows.Forms.NumericUpDown DIFFM;
         public System.Windows.Forms.Label re;
+        public System.Windows.Forms.Label Total;
+        public System.Windows.Forms.Label Difficulty;
+        public System.Windows.Forms.Label ndk0;
+        public System.Windows.Forms.Label ntdk0;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label gdk0;
+        public System.Windows.Forms.Label gtdk0;
+        public System.Windows.Forms.Label ndk1;
+        public System.Windows.Forms.Label ntdk1;
+        public System.Windows.Forms.Label gdk1;
+        public System.Windows.Forms.Label gtdk1;
+        public System.Windows.Forms.Label ndk2;
+        public System.Windows.Forms.Label ntdk2;
+        public System.Windows.Forms.Label gdk2;
+        public System.Windows.Forms.Label gtdk2;
+        public System.Windows.Forms.Label ndk3;
+        public System.Windows.Forms.Label ntdk3;
+        public System.Windows.Forms.Label gdk3;
+        public System.Windows.Forms.Label gtdk3;
+        public System.Windows.Forms.Label ndk4;
+        public System.Windows.Forms.Label ntdk4;
+        public System.Windows.Forms.Label gdk4;
+        public System.Windows.Forms.Label gtdk4;
+        public System.Windows.Forms.Label label19;
+        public System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label basum0;
+        public System.Windows.Forms.Label baamount0;
+        public System.Windows.Forms.Label basum1;
+        public System.Windows.Forms.Label baamount1;
+        public System.Windows.Forms.Label TJAName;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
 
