@@ -153,20 +153,20 @@ namespace ScoreCalculator
 
         private void INITM_ValueChanged(object sender, EventArgs e)
         {
-            scoreInit.ScoreInitValueChanged(this);
+            scoreInit.ScoreInitValueChanged(this, tjaRead);
         }
         private void INITM_TextChanged(object sender, EventArgs e)
         {
-            scoreInit.ScoreInitTextChanged(this);
+            scoreInit.ScoreInitTextChanged(this, tjaRead);
         }
 
         private void DIFFM_ValueChanged(object sender, EventArgs e)
         {
-            scoreDiff.ScoreDiffValueChanged(this);
+            scoreDiff.ScoreDiffValueChanged(this, tjaRead);
         }
         private void DIFFM_TextChanged(object sender, EventArgs e)
         {
-            scoreDiff.ScoreDiffTextChanged(this);
+            scoreDiff.ScoreDiffTextChanged(this, tjaRead);
         }
 
         private void Diff比率_ValueChanged(object sender, EventArgs e)
