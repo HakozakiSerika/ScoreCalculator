@@ -177,11 +177,11 @@ namespace ScoreCalculator
             }
 
             //ヘッダからいらない文字を抜く
-            balloon = strballoon.Replace("BALLOON:", "");
-            level = int.Parse(strlevel.Replace("LEVEL:", ""));
+            balloon = strballoon?.Replace("BALLOON:", "");
+            level = int.Parse(strlevel?.Replace("LEVEL:", ""));
 
             //風船打数を求める
-            if (balloon != "")
+            if (!string.IsNullOrWhiteSpace(balloon))
                 balAmount = strToInt(balloon);
             else
             {
@@ -190,7 +190,7 @@ namespace ScoreCalculator
             }
 
             //風船の個数を求める
-            if (balloon != "")
+            if (!string.IsNullOrWhiteSpace(balloon))
                 balloonCount = CountChar(strballoon, ',') + 1;
             else
                 balloonCount = 0;
@@ -418,6 +418,7 @@ namespace ScoreCalculator
 
         public static int CountChar(string s, char c)
         {
+            if (string.IsNullOrEmpty(s)) return 0; // nullないし空文字であればとりあえずその文字はないはずなので0を返す。
             return s.Length - s.Replace(c.ToString(), "").Length;
         }
 
