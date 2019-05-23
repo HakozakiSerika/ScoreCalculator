@@ -38,12 +38,10 @@ namespace ScoreCalculator
         }
         private void TJAReader_Click(object sender, EventArgs e)
         {
+            //初期化
 
             tjaRead.TJAReader();
-            calculate.Calculated(this, tjaRead);
-
-            TJAReader.Visible = false;
-                           
+            calculate.Calculated(this, tjaRead);                           
         }
 
         private void button2_click(object sender, EventArgs e)
@@ -53,7 +51,7 @@ namespace ScoreCalculator
 
         private void ScoreUD_ValueChanged(object sender, EventArgs e)
         {
-            if (calculate.bFirstRead)
+            if (calculate.bRead)
             {
                 calculate.Score = (int)ScoreUD.Value;
 
@@ -208,7 +206,8 @@ namespace ScoreCalculator
         {
             scoreDiff.Diff比率Changed(this, tjaRead, calculate);
         }
-    }
+
+　　}
     
 
 }

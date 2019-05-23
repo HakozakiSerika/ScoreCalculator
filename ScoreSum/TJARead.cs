@@ -21,6 +21,7 @@ namespace ScoreCalculator
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                ResetValue(bRead);
                 StreamReader TJA = new StreamReader(ofd.OpenFile(), Encoding.GetEncoding("shift_jis"));
 
                 while (TJA.EndOfStream == false)
@@ -40,6 +41,7 @@ namespace ScoreCalculator
 
                     str[2] += tja + Environment.NewLine;
 
+                    //#STARTと#ENDの間の文字列を取得する用
                     if (n9 >= 0)
                     {
                         bStart = true;
@@ -49,6 +51,7 @@ namespace ScoreCalculator
                         bEnd = true;
                     }
 
+                    //コメントがある場合は取り除いたものを別の変数に入れる
                     if (n3 >= 0)
                     {
                         tjacom = tja.Remove(n3);
@@ -56,6 +59,7 @@ namespace ScoreCalculator
 
                     if (!bEnd)
                     {
+                        //GOGOかどうか
                         if (n4 >= 0)
                         {
                             bGogo = true;
@@ -65,6 +69,8 @@ namespace ScoreCalculator
                         {
                             bGogo = false;
                         }
+
+                        //命令やヘッダがある行は文字列に追加しない
                         if ((n1 == -1 && n2 == -1))
                         {
 
@@ -79,6 +85,8 @@ namespace ScoreCalculator
                                 scoreStr[0] += tja;
                             }
                         }
+
+                        //GOGOのみの文字列を作るため#GOGOSTARTと#GOGOENDを残した文字列も作成しておく。
                         if ((n1 == -1 && n2 == -1) || n4 >= 0 || n5 >= 0)
                         {
                             if (n3 >= 0)
@@ -91,16 +99,19 @@ namespace ScoreCalculator
                             }
                         }
 
+                        //風船用文字列
                         if (n6 >= 0)
                         {
                             strballoon += tja;
                         }
 
+                        //レベル用文字列
                         if (n7 >= 0)
                         {
                             strlevel += tja;
                         }
 
+                        //GOGO用文字列に文字を入れる
                         if ((n1 == -1 && n2 == -1 && bGogo))
                         {
                             if (n3 >= 0)
@@ -113,6 +124,7 @@ namespace ScoreCalculator
                             }
                         }
 
+                        //風船の個数を数える。(77777778などの記述には未対応)
                         if ((bStart && n1 == -1 && n2 == -1 && n8 >= 0))
                         {
                             if (n3 >= 0)
@@ -123,6 +135,8 @@ namespace ScoreCalculator
                             {
                                 nballoonEnumCount += CountChar(tja, '7');
                             }
+
+                            //ゴーゴーで得点が違うのでこちらも分ける。
                             if (bGogo)
                             {
                                 for (int i = nbEComp; i < nballoonEnumCount; i++)
@@ -161,8 +175,11 @@ namespace ScoreCalculator
                     }
                 }
 
+                //ヘッダからいらない文字を抜く
                 balloon = strballoon.Replace("BALLOON:", "");
                 level = int.Parse(strlevel.Replace("LEVEL:", ""));
+
+                //風船打数を求める
                 if (balloon != "")
                     balAmount = strToInt(balloon);
                 else
@@ -171,6 +188,7 @@ namespace ScoreCalculator
                     balAmount[1] = 0;
                 }
 
+                //風船の個数を求める
                 if (balloon != "")
                     balloonCount = CountChar(strballoon, ',') + 1;
                 else
@@ -206,24 +224,15 @@ namespace ScoreCalculator
                     }
                 }
 
-                string[] scoreStrEditBe = new string[7] { null, null, null, null, null, null, null };
-                string[] scoreStrEditAf = new string[7] { null, null, null, null, null, null, null };
+                string[] strGOGOTJA = new string[7] { null, null, null, null, null, null, null };
 
-                scoreStrEditBe[0] = scoreStr[0].Replace(",", "");
-                scoreStrEditBe[1] = scoreStrEditBe[0].Replace("0", "");
-                scoreStrEditBe[2] = scoreStrEditBe[1].Replace("5", "");
-                scoreStrEditBe[3] = scoreStrEditBe[2].Replace("6", "");
-                scoreStrEditBe[4] = scoreStrEditBe[3].Replace("7", "");
-                scoreStrEditBe[5] = scoreStrEditBe[4].Replace("8", "");
-                scoreStrEditBe[6] = scoreStrEditBe[5].Replace("9", "");
-
-                scoreStrEditAf[0] = scoreStr[1].Replace(",", "");
-                scoreStrEditAf[1] = scoreStrEditAf[0].Replace("0", "");
-                scoreStrEditAf[2] = scoreStrEditAf[1].Replace("5", "");
-                scoreStrEditAf[3] = scoreStrEditAf[2].Replace("6", "");
-                scoreStrEditAf[4] = scoreStrEditAf[3].Replace("7", "");
-                scoreStrEditAf[5] = scoreStrEditAf[4].Replace("8", "");//譜面から「1234」以外を取り除く
-                scoreStrEditAf[6] = scoreStrEditAf[5].Replace("9", "");
+                strGOGOTJA[0] = scoreStr[1].Replace(",", "");
+                strGOGOTJA[1] = strGOGOTJA[0].Replace("0", "");
+                strGOGOTJA[2] = strGOGOTJA[1].Replace("5", "");
+                strGOGOTJA[3] = strGOGOTJA[2].Replace("6", "");
+                strGOGOTJA[4] = strGOGOTJA[3].Replace("7", "");
+                strGOGOTJA[5] = strGOGOTJA[4].Replace("8", "");
+                strGOGOTJA[6] = strGOGOTJA[5].Replace("9", "");//譜面から「1234」以外を取り除く
 
                 string[] RemoveGogo = new string[nGoGoCount + 1];
                 string RemovePause = null;
@@ -235,7 +244,7 @@ namespace ScoreCalculator
                     GogoPosS[i] = 0;
                     GogoPosE[i] = 0;
                 }
-                RemoveGogo[0] = scoreStrEditAf[6];
+                RemoveGogo[0] = strGOGOTJA[6];
 
 
                 for (int i = 0; i < nGoGoCount + 1; i++)
@@ -256,99 +265,16 @@ namespace ScoreCalculator
                     }
                 }//ゴーゴーの位置確認、命令削除
 
-
+                
                 tja12[0] = RemoveGogo[nGoGoCount].Replace("3", "0");
-                tja12[1] = tja12[0].Replace("4", "0");
+                tja12[1] = tja12[0].Replace("4", "0");//1,2のみの譜面
                 tja34[0] = RemoveGogo[nGoGoCount].Replace("1", "0");
-                tja34[1] = tja34[0].Replace("2", "0");
+                tja34[1] = tja34[0].Replace("2", "0");//3,4のみの譜面
 
                 tja0[0] = tja12[1].Replace("1", "0");
-                tja0[1] = tja0[0].Replace("2", "0");
+                tja0[1] = tja0[0].Replace("2", "0");//すべて0の譜面。総音符数用(別に用意する必要あったかなこれ...)
 
-                /*
-                string[] dk = new string[5];//[コンボ帯]
-                int[] dkg = new int[5];//[コンボ帯][GOGO？]
-                string[] dkSum = new string[2];
-                string[] tdk = new string[5];
-                int[] tdkg = new int[5];
-                string[] tdkSum = new string[2];
-                string Copy;
-
-                if (tja12[1] != null)
-                {
-                    if (tja12[1].Length >= 10)
-                    {
-                        dk[0] = tja12[1].Remove(9);
-                        if (tja12[1].Length < 30)
-                        {
-                            dk[1] = tja12[1].Remove(0, 10);
-                        }
-                    }               
-                    if (tja12[1].Length >= 30)
-                    {
-                        Copy = tja12[1].Remove(29);
-                        dk[1] = Copy.Remove(0, 10);
-                        if (tja12[1].Length < 50)
-                        {
-                            dk[2] = tja12[1].Remove(0, 30);
-                        }
-                    }                    
-                    if (tja12[1].Length >= 50)
-                    {
-                        Copy = tja12[1].Remove(49);
-                        dk[2] = Copy.Remove(0, 30);
-                        if (tja12[1].Length < 100)
-                        {
-                            dk[3] = tja12[1].Remove(0, 50);
-                        }
-                    }                    
-                    if (tja12[1].Length >= 100)
-                    {
-                        Copy = tja12[1].Remove(99);
-                        dk[3] = Copy.Remove(0, 50);
-                        dk[4] = tja12[1].Remove(0, 100);
-                    }
-                    
-                }
-
-                if (tja34[1] != null)
-                {
-                    if (tja34[1].Length >= 10)
-                    {
-                        tdk[0] = tja34[1].Remove(9);
-                        if (tja34[1].Length < 30)
-                        {
-                            tdk[1] = tja34[1].Remove(0, 10);
-                        }
-                    }
-                    if (tja34[1].Length >= 30)
-                    {
-                        Copy = tja34[1].Remove(29);
-                        tdk[1] = Copy.Remove(0, 10);
-                        if (tja34[1].Length < 50)
-                        {
-                            tdk[2] = tja34[1].Remove(0, 30);
-                        }
-                    }
-                    if (tja34[1].Length >= 50)
-                    {
-                        Copy = tja34[1].Remove(49);
-                        tdk[2] = Copy.Remove(0, 30);
-                        if (tja34[1].Length < 100)
-                        {
-                            tdk[3] = tja34[1].Remove(0, 50);
-                        }
-                    }
-                    if (tja34[1].Length >= 100)
-                    {
-                        Copy = tja34[1].Remove(99);
-                        tdk[3] = Copy.Remove(0, 50);
-                        tdk[4] = tja34[1].Remove(0, 100);
-                    }
-
-                }
-                */
-                string strG = null;
+                string strG = null;//GOGOのみの譜面
                 string[] G = new string[nGoGoCount];
                 string[] GOGO = new string[nGoGoCount];
 
@@ -363,7 +289,7 @@ namespace ScoreCalculator
 
                 GOGO[0] = tja0[1];
 
-
+                //ゴーゴーの位置を計測。コンボごとのノーツ数計算に使われる
                 for (int i = 0; i < nGoGoCount; i++)
                 {
                     if (GogoPosE[i] == -1)
@@ -384,6 +310,7 @@ namespace ScoreCalculator
                     }
                 }
 
+                //コンボごとのノーツ取得。
                 if (tja0[1].Length < 10)
                 {
                     GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, tja0[1].Length);
@@ -436,6 +363,7 @@ namespace ScoreCalculator
                 //GOGO[nGoGoCount - 1] === ゴーゴーの譜面以外0にしたもの
                 //こいつ...かなり使えるぞ...!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+                //コンボごとのノーツ数計算
                 for (int i = 0; i < 5; i++)
                 {
                     Nd[i] = CountChar(NORMALCombo[i], '1');
@@ -461,6 +389,7 @@ namespace ScoreCalculator
                 }
 
             }
+            bRead = true;
         }
         public string GetBetweenStrings(string str1, string str2, string orgStr)
         {
@@ -509,6 +438,76 @@ namespace ScoreCalculator
 
             return nArray;
         }
+        private void ResetValue(bool b)
+        {
+            if (b)
+            {
+                TJA = null;
+                
+
+                tja = null;
+                tjacom = null;
+                nballoonEnumCount = 0;
+                nbEComp = 0; //これなんだっけ...
+                strballoon = null;
+                balloon = null;
+                strlevel = null; //ヘッダ情報抜き出し用。
+                n1 = 0;
+                n2 = 0;
+                n3 = 0;
+                n4 = 0;
+                n5 = 0;
+                n6 = 0;
+                n7 = 0;
+                n8 = 0;
+                n9 = 0;
+                n10 = 0;
+                nGoGoCount = 0; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
+                balloonCount = 0;
+                level = 0; //風船の数を数える。
+                bGogo = false; bStart = false; bEnd = false;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
+
+                for (int i = 0; i < 2; i++)
+                {
+                    tja12[i] = null;
+                    tja34[i] = null;
+                    tja0[i] = null;
+
+                    scoreStr[i] = null;
+
+                    balAmount[i] = 0;
+                    baAmount[i] = 0;
+                    baSum[i] = 0;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    str[i] = null;
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    NORMALCombo[i] = null;
+                    GOGOCombo[i] = null;
+
+                    Nd[i] = 0;
+                    Nk[i] = 0;
+                    Ntd[i] = 0;
+                    Ntk[i] = 0;
+                    Gd[i] = 0;
+                    Gk[i] = 0;
+                    Gtd[i] = 0;
+                    Gtk[i] = 0;
+
+                    ndk[i] = 0;
+                    ntdk[i] = 0;
+                    gdk[i] = 0;
+                    gtdk[i] = 0;
+                }
+                for (int i = 0; i < 999; i++)
+                {
+                    bbalgogo[i] = false;
+                }
+            }
+        }
 
         public OpenFileDialog ofd = new OpenFileDialog();
         public StreamReader TJA = null;
@@ -548,7 +547,7 @@ namespace ScoreCalculator
         public int[] baAmount = new int[2] { 0, 0 };//風船打数
         public int[] baSum = new int[2] { 0, 0 };//風船個数
 
-
+        bool bRead;
     }
 }
     

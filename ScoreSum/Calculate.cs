@@ -11,7 +11,13 @@ namespace ScoreCalculator
     {
         public void Calculated(ScoreCal_Form1 mainForm, TJARead tjaRead)
         {
-            if (!bFirstRead)
+            if(bRead)
+            {
+                ResetValue();
+                bRead = false;
+            }
+
+            if (!bRead)
             {
                 if (tjaRead.level <= 1)
                 {
@@ -102,7 +108,7 @@ namespace ScoreCalculator
                     }
                 }
 
-                #region 1st読み込み後テキスト
+                #region 読み込み後テキスト
                 mainForm.Total.Text = tjaRead.tja0[1].Length.ToString();
                 mainForm.Difficulty.Text = tjaRead.level.ToString();
                 mainForm.ndk0.Text = tjaRead.ndk[0].ToString();
@@ -136,9 +142,13 @@ namespace ScoreCalculator
                 mainForm.baamount1.Text = tjaRead.baAmount[1].ToString();
                 #endregion
 
-                bFirstRead = true;
+                bRead = true;
             }
 
+            if (bRead)
+            {
+                mainForm.TJAReader.Text = "別のTJAファイルを読み込む";
+            }
 
 
 
@@ -147,9 +157,23 @@ namespace ScoreCalculator
 
         }
 
+        private void ResetValue()
+        {
+            ScoreInit = 0; ScoreDiff = 0; Score = 0; ComboBonus = 0; //スコア計算用
+            diff用 = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                calNdk[i] = 0;
+                calNtdk[i] = 0;
+                calGdk[i] = 0;
+                calGtdk[i] = 0;
+            }
+
+
+        }
 
         public int ScoreInit = 0, ScoreDiff = 0, Score = 0, ComboBonus = 0; //スコア計算用
-        public bool bFirstRead = false;
+        public bool bRead = false;
         public int diff用 = 0;
         public int[] calNdk = new int[5];//端数処理しないと計算結果が極端に低くなってしまう...
         public int[] calNtdk = new int[5];

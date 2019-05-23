@@ -65,7 +65,6 @@
             this.SCOREDIFF = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.re = new System.Windows.Forms.Label();
-            this.Reset = new System.Windows.Forms.Button();
             this.ScoreUD = new System.Windows.Forms.NumericUpDown();
             this.スコア基準 = new System.Windows.Forms.Label();
             this.Diff比率 = new System.Windows.Forms.NumericUpDown();
@@ -427,17 +426,6 @@
             this.re.TabIndex = 50;
             this.re.Text = "???";
             // 
-            // Reset
-            // 
-            this.Reset.Location = new System.Drawing.Point(607, 318);
-            this.Reset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Reset.Name = "Reset";
-            this.Reset.Size = new System.Drawing.Size(181, 49);
-            this.Reset.TabIndex = 51;
-            this.Reset.Text = "Reset!";
-            this.Reset.UseVisualStyleBackColor = true;
-            this.Reset.Visible = false;
-            // 
             // ScoreUD
             // 
             this.ScoreUD.Increment = new decimal(new int[] {
@@ -676,7 +664,6 @@
             this.Controls.Add(this.Diff比率);
             this.Controls.Add(this.スコア基準);
             this.Controls.Add(this.ScoreUD);
-            this.Controls.Add(this.Reset);
             this.Controls.Add(this.re);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.SCOREDIFF);
@@ -736,7 +723,6 @@
         private System.Windows.Forms.Label SCOREINIT;
         private System.Windows.Forms.Label SCOREDIFF;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.Label スコア基準;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel linkLabel1;
