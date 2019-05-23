@@ -40,7 +40,10 @@ namespace ScoreCalculator
         {
             //初期化
 
-            tjaRead.TJAReader();
+            if (!tjaRead.TJAReader())
+            {
+                return;
+            }
             calculate.Calculated(this, tjaRead);                           
         }
 
