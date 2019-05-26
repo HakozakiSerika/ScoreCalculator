@@ -92,7 +92,7 @@
             // 
             this.TJAReader.Font = new System.Drawing.Font("メイリオ", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TJAReader.Location = new System.Drawing.Point(9, 297);
-            this.TJAReader.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TJAReader.Margin = new System.Windows.Forms.Padding(2);
             this.TJAReader.Name = "TJAReader";
             this.TJAReader.Size = new System.Drawing.Size(582, 131);
             this.TJAReader.TabIndex = 0;
@@ -154,7 +154,7 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.Location = new System.Drawing.Point(629, 9);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -470,7 +470,7 @@
             0,
             0});
             this.ScoreUD.Location = new System.Drawing.Point(406, 180);
-            this.ScoreUD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ScoreUD.Margin = new System.Windows.Forms.Padding(2);
             this.ScoreUD.Maximum = new decimal(new int[] {
             2000000,
             0,
@@ -661,7 +661,7 @@
             0,
             0});
             this.INITM.Location = new System.Drawing.Point(501, 59);
-            this.INITM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.INITM.Margin = new System.Windows.Forms.Padding(2);
             this.INITM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -675,7 +675,7 @@
             // DIFFM
             // 
             this.DIFFM.Location = new System.Drawing.Point(501, 82);
-            this.DIFFM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DIFFM.Margin = new System.Windows.Forms.Padding(2);
             this.DIFFM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -688,6 +688,7 @@
             // 
             // ScoreCal_Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 437);
@@ -745,9 +746,11 @@
             this.Controls.Add(this.TJAName);
             this.Controls.Add(this.TJAReader);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ScoreCal_Form1";
             this.Text = "TJAScoreCalculator";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ScoreCal_Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ScoreCal_Form1_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).EndInit();
