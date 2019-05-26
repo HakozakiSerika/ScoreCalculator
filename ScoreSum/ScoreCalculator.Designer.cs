@@ -696,6 +696,7 @@
             // 
             // ScoreCal_Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 437);
@@ -757,6 +758,8 @@
             this.MinimumSize = new System.Drawing.Size(920, 420);
             this.Name = "ScoreCal_Form1";
             this.Text = "TJAScoreCalculator";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ScoreCal_Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ScoreCal_Form1_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).EndInit();

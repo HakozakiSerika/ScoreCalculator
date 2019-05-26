@@ -11,19 +11,22 @@ namespace ScoreCalculator
 {
     class TJARead
     {
-        public bool TJAReader()
+        public bool TJAReader(string fileName = null)
         {
-            ofd.FileName = "TJA.tja";
-            ofd.InitialDirectory = @"C:\";
-            ofd.Filter = "TJAファイル(*.tja)|*.tja;";
-            ofd.Title = "ファイルを開く";
-            ofd.RestoreDirectory = true;
-            if (ofd.ShowDialog() != DialogResult.OK)
+            if(string.IsNullOrWhiteSpace(fileName))
             {
-                return false;
+                ofd.FileName = "TJA.tja";
+                ofd.InitialDirectory = @"C:\";
+                ofd.Filter = "TJAファイル(*.tja)|*.tja;";
+                ofd.Title = "ファイルを開く";
+                ofd.RestoreDirectory = true;
+                if (ofd.ShowDialog() != DialogResult.OK)
+                {
+                    return false;
+                }
             }
             ResetValue(bRead);
-            StreamReader TJA = new StreamReader(ofd.OpenFile(), Encoding.GetEncoding("shift_jis"));
+            StreamReader TJA = new StreamReader(string.IsNullOrWhiteSpace(fileName) ? ofd.FileName : fileName, Encoding.GetEncoding("shift_jis"));
 
             while (TJA.EndOfStream == false)
             {
