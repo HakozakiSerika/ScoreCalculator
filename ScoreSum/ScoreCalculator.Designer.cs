@@ -90,6 +90,8 @@
             // 
             // TJAReader
             // 
+            this.TJAReader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.TJAReader.Font = new System.Drawing.Font("メイリオ", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TJAReader.Location = new System.Drawing.Point(9, 297);
             this.TJAReader.Margin = new System.Windows.Forms.Padding(2);
@@ -152,6 +154,9 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.Location = new System.Drawing.Point(629, 9);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -541,6 +546,7 @@
             // 
             // linkLabel1
             // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(1066, 416);
             this.linkLabel1.Name = "linkLabel1";
@@ -552,6 +558,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(908, 416);
             this.label9.Name = "label9";
@@ -645,6 +652,7 @@
             // 
             // label21
             // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(627, 416);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -747,6 +755,7 @@
             this.Controls.Add(this.TJAReader);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimumSize = new System.Drawing.Size(920, 420);
             this.Name = "ScoreCal_Form1";
             this.Text = "TJAScoreCalculator";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ScoreCal_Form1_DragDrop);
