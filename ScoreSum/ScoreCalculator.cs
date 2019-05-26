@@ -36,6 +36,17 @@ namespace ScoreCalculator
         {
             InitializeComponent();
         }
+
+        public ScoreCal_Form1(string filePath)
+            : this()
+        {
+            if (!tjaRead.TJAReader(filePath))
+            {
+                return;
+            }
+            calculate.Calculated(this, tjaRead);
+        }
+
         private void TJAReader_Click(object sender, EventArgs e)
         {
             //初期化
@@ -44,7 +55,7 @@ namespace ScoreCalculator
             {
                 return;
             }
-            calculate.Calculated(this, tjaRead);                           
+            calculate.Calculated(this, tjaRead);
         }
 
         private void button2_click(object sender, EventArgs e)
@@ -210,7 +221,36 @@ namespace ScoreCalculator
             scoreDiff.Diff比率Changed(this, tjaRead, calculate);
         }
 
-　　}
+        private void ScoreCal_Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            // ドラッグアンドドロップの実装
+            var path = ((string[])e.Data.GetData(DataFormats.FileDrop, false))[0];
+            if (!Path.GetExtension(path).Contains("tja"))
+            {
+                // とりあえず.tjaファイルのみを受け付ける。
+                // バイナリかテキストか調べるのはめんどくさいんで。
+                return;
+            }
+            if (!tjaRead.TJAReader(path))
+            {
+                return;
+            }
+            calculate.Calculated(this, tjaRead);
+        }
+
+        private void ScoreCal_Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // ファイルのドラッグアンドドロップ
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+    }
     
 
 }
