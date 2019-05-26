@@ -36,6 +36,17 @@ namespace ScoreCalculator
         {
             InitializeComponent();
         }
+
+        public ScoreCal_Form1(string filePath)
+            : this()
+        {
+            if (!tjaRead.TJAReader(filePath))
+            {
+                return;
+            }
+            calculate.Calculated(this, tjaRead);
+        }
+
         private void TJAReader_Click(object sender, EventArgs e)
         {
             //初期化
@@ -44,7 +55,7 @@ namespace ScoreCalculator
             {
                 return;
             }
-            calculate.Calculated(this, tjaRead);                           
+            calculate.Calculated(this, tjaRead);
         }
 
         private void button2_click(object sender, EventArgs e)
