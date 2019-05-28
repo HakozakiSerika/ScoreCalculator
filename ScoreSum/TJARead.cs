@@ -145,14 +145,14 @@ namespace ScoreCalculator
                         {
                             for (int i = nbEComp; i < nballoonEnumCount; i++)
                             {
-                                bbalgogo[i] = true;
+                                bbalgogo.Add(true);
                             }
                         }
                         else
                         {
                             for (int i = nbEComp; i < nballoonEnumCount; i++)
                             {
-                                bbalgogo[i] = false;
+                                bbalgogo.Add(false);
                             }
                         }
                         nbEComp = nballoonEnumCount;
@@ -522,7 +522,7 @@ namespace ScoreCalculator
         public string[] str = new string[3] { null, null, null }; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用 2:表示用
         public string[] scoreStr = new string[2] { null, null }; //0や5～9がない「ノーツのみ」のものを作る用
         public int nballoonEnumCount = 0, nbEComp = 0; //これなんだっけ...
-        public bool[] bbalgogo = new bool[999]; //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
+        public List<bool> bbalgogo = new List<bool>(); //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
         public string strballoon, balloon, strlevel; //ヘッダ情報抜き出し用。
         public int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, nGoGoCount; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
         public int balloonCount, level; //風船の数を数える。
