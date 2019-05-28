@@ -90,7 +90,7 @@ namespace ScoreCalculator
                     calNtdk[3] = tjaRead.ntdk[3] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 4 - ScoreDiff * 4 % 10));
                     calNtdk[4] = tjaRead.ntdk[4] * 2 * ((ScoreInit - ScoreInit % 10) + (ScoreDiff * 8 - ScoreDiff * 8 % 10));
 
-                    calGdk[0] = tjaRead.gdk[0] * ((ScoreInit - ScoreInit % 10) * 12 / 10) - (((ScoreInit - ScoreInit % 10) * 12 / 10) % 10);
+                    calGdk[0] = tjaRead.gdk[0] * (((ScoreInit - ScoreInit % 10) * 12 / 10) - ((ScoreInit - ScoreInit % 10) * 12 / 10 % 10));
                     calGdk[1] = tjaRead.gdk[1] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff - ScoreDiff % 10)) * 12 / 10) % 10);
                     calGdk[2] = tjaRead.gdk[2] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 2 - ScoreDiff * 2 % 10)) * 12 / 10) % 10);
                     calGdk[3] = tjaRead.gdk[3] * (((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) - ((ScoreInit - ScoreInit % 10 + (ScoreDiff * 4 - ScoreDiff * 4 % 10)) * 12 / 10) % 10);
@@ -141,28 +141,6 @@ namespace ScoreCalculator
                 mainForm.baamount0.Text = tjaRead.baAmount[0].ToString();
                 mainForm.baamount1.Text = tjaRead.baAmount[1].ToString();
                 #endregion
-                string s = null;
-                for (int j = 0; j < 5; j++)
-                {
-                    if (tjaRead.ndk[j] != 0)
-                        s += "calNdk[" + j.ToString() + "]=" + (calNdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calNdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.ntdk[j] != 0)
-                        s += "calNtdk[" + j.ToString() + "]=" + (calNtdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calNtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.gdk[j] != 0)
-                        s += "calGdk[" + j.ToString() + "]=" + (calGdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calGdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                    if (tjaRead.gtdk[j] != 0)
-                        s += "calGtdk[" + j.ToString() + "]=" + (calGtdk[j]).ToString() + Environment.NewLine;
-                    else
-                        s += "calGtdk[" + j.ToString() + "]=" + "0" + Environment.NewLine;
-                }
-
-                mainForm.textBox1.Text = s;
                 bRead = true;
             }
 

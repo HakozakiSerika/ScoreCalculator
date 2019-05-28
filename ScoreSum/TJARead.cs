@@ -508,7 +508,7 @@ namespace ScoreCalculator
                     gdk[i] = 0;
                     gtdk[i] = 0;
                 }
-                for (int i = 0; i < 999; i++)
+                for (int i = 0; i < bbalgogo.Count; i++)
                 {
                     bbalgogo[i] = false;
                 }
