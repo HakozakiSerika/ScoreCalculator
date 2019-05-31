@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CScoreInit.cs" />
     <Compile Include="TJARead.cs" />
+    <Compile Include="Write.cs" />
     <EmbeddedResource Include="ScoreCalculator.resx">
       <DependentUpon>ScoreCalculator.cs</DependentUpon>
     </EmbeddedResource>

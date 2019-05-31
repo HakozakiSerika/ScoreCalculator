@@ -26,7 +26,9 @@ namespace ScoreCalculator
                 }
             }
             ResetValue(bRead);
-            StreamReader TJA = new StreamReader(string.IsNullOrWhiteSpace(fileName) ? ofd.FileName : fileName, Encoding.GetEncoding("shift_jis"));
+            TJA = new StreamReader(string.IsNullOrWhiteSpace(fileName) ? ofd.FileName : fileName, Encoding.GetEncoding("shift_jis"));
+
+            fileNameWrite = fileName;
 
             while (TJA.EndOfStream == false)
             {
@@ -42,6 +44,9 @@ namespace ScoreCalculator
                 n8 = tja.IndexOf("7");
                 n9 = tja.IndexOf("#START");
                 n10 = tja.IndexOf("#END");
+                n11 = tja.IndexOf("SCOREINIT:");
+                n12 = tja.IndexOf("SCOREDIFF:");
+
 
                 str[2] += tja + Environment.NewLine;
 
@@ -61,6 +66,15 @@ namespace ScoreCalculator
                     tjacom = tja.Remove(n3);
                 }
 
+                //SCOREINIT,DIFFの文字列保存
+                if (n11 >= 0)
+                {
+                    strScoreInit = tja;
+                }
+                if (n12 >= 0)
+                {
+                    strScoreDiff= tja;
+                }
                 if (!bEnd)
                 {
                     //GOGOかどうか
@@ -178,7 +192,7 @@ namespace ScoreCalculator
                     */
                 }
             }
-
+            TJA.Close();
             //ヘッダからいらない文字を抜く
             balloon = strballoon?.Replace("BALLOON:", "");
             level = int.Parse(strlevel?.Replace("LEVEL:", ""));
@@ -468,11 +482,13 @@ namespace ScoreCalculator
                 n8 = 0;
                 n9 = 0;
                 n10 = 0;
+                n11 = 0;
+                n12 = 0;
                 nGoGoCount = 0; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
                 balloonCount = 0;
                 level = 0; //風船の数を数える。
                 bGogo = false; bStart = false; bEnd = false;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
-
+                fileNameWrite = null;
                 for (int i = 0; i < 2; i++)
                 {
                     tja12[i] = null;
@@ -512,6 +528,8 @@ namespace ScoreCalculator
                 {
                     bbalgogo[i] = false;
                 }
+                strScoreInit = null;
+                strScoreDiff = null;
             }
         }
 
@@ -524,7 +542,7 @@ namespace ScoreCalculator
         public int nballoonEnumCount = 0, nbEComp = 0; //これなんだっけ...
         public List<bool> bbalgogo = new List<bool>(); //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
         public string strballoon, balloon, strlevel; //ヘッダ情報抜き出し用。
-        public int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, nGoGoCount; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
+        public int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10,n11,n12, nGoGoCount; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
         public int balloonCount, level; //風船の数を数える。
         public bool bGogo, bStart, bEnd;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
 
@@ -553,7 +571,10 @@ namespace ScoreCalculator
         public int[] baAmount = new int[2] { 0, 0 };//風船打数
         public int[] baSum = new int[2] { 0, 0 };//風船個数
 
-        bool bRead;
+        public bool bRead;
+
+        public string fileNameWrite;
+        public string strScoreInit, strScoreDiff;
     }
 }
     

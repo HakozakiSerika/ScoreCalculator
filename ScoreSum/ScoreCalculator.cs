@@ -31,6 +31,7 @@ namespace ScoreCalculator
         Calculate calculate = new Calculate();
         CScoreInit scoreInit = new CScoreInit();
         CScoreDiff scoreDiff = new CScoreDiff();
+        Write write = new Write();
 
         public ScoreCal_Form1()
         {
@@ -249,6 +250,12 @@ namespace ScoreCalculator
             {
                 e.Effect = DragDropEffects.None;
             }
+        }
+
+        private void Write_Click(object sender, EventArgs e)
+        {
+            if (tjaRead.bRead)
+            write.WriteScore(tjaRead, calculate,this);
         }
     }
     

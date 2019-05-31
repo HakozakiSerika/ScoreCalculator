@@ -82,6 +82,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.INITM = new System.Windows.Forms.NumericUpDown();
             this.DIFFM = new System.Windows.Forms.NumericUpDown();
+            this.Write = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).BeginInit();
@@ -617,9 +618,9 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(836, 520);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(49, 15);
+            this.label21.Size = new System.Drawing.Size(44, 15);
             this.label21.TabIndex = 71;
-            this.label21.Text = "v 2.2.0";
+            this.label21.Text = "v2.2.1";
             // 
             // INITM
             // 
@@ -654,12 +655,23 @@
             this.DIFFM.TabIndex = 73;
             this.DIFFM.ValueChanged += new System.EventHandler(this.DIFFM_ValueChanged);
             // 
+            // Write
+            // 
+            this.Write.Location = new System.Drawing.Point(576, 315);
+            this.Write.Name = "Write";
+            this.Write.Size = new System.Drawing.Size(212, 51);
+            this.Write.TabIndex = 74;
+            this.Write.Text = "SCOREINIT,DIFF書き出し";
+            this.Write.UseVisualStyleBackColor = true;
+            this.Write.Click += new System.EventHandler(this.Write_Click);
+            // 
             // ScoreCal_Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 546);
+            this.Controls.Add(this.Write);
             this.Controls.Add(this.DIFFM);
             this.Controls.Add(this.INITM);
             this.Controls.Add(this.label21);
@@ -783,6 +795,7 @@
         public System.Windows.Forms.Label baamount1;
         public System.Windows.Forms.Label TJAName;
         public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button Write;
     }
 }
 
