@@ -64,7 +64,7 @@ namespace ScoreCalculator
                     Score = 1000000;
                 }
                
-                ComboBonus = tjaRead.tja0[1].Length / 100;
+                ComboBonus = tjaRead.nComboBonus / 100;
                 mainForm.ScoreUD.Value = Score;
 
 
@@ -109,7 +109,7 @@ namespace ScoreCalculator
                 }
 
                 #region 読み込み後テキスト
-                mainForm.Total.Text = tjaRead.tja0[1].Length.ToString();
+                mainForm.Total.Text = tjaRead.nComboBonus.ToString();
                 mainForm.Difficulty.Text = tjaRead.level.ToString();
                 mainForm.ndk0.Text = tjaRead.ndk[0].ToString();
                 mainForm.ndk1.Text = tjaRead.ndk[1].ToString();

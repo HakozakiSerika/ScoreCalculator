@@ -26,6 +26,7 @@ namespace ScoreCalculator
                 }
             }
             ResetValue(bRead);
+
             TJA = new StreamReader(string.IsNullOrWhiteSpace(fileName) ? ofd.FileName : fileName, Encoding.GetEncoding("shift_jis"));
 
             fileNameWrite = fileName;
@@ -81,6 +82,7 @@ namespace ScoreCalculator
                     if (n4 >= 0)
                     {
                         bGogo = true;
+                        bGogoExist = true;
                         nGoGoCount++;
                     }
                     if (n5 >= 0)
@@ -212,15 +214,18 @@ namespace ScoreCalculator
             else
                 balloonCount = 0;
 
-            string[] gogo = new string[nGoGoCount];
-            string[] normal = new string[nGoGoCount];
 
-            for (int i = 0; i < nGoGoCount; i++)
+            if (bGogoExist)
             {
-                gogo[i] = null;
-                normal[i] = null;
-            }
+                string[] gogo = new string[nGoGoCount];
+                string[] normal = new string[nGoGoCount];
 
+                for (int i = 0; i < nGoGoCount; i++)
+                {
+                    gogo[i] = null;
+                    normal[i] = null;
+                }
+            }
 
 
 
@@ -242,170 +247,247 @@ namespace ScoreCalculator
                 }
             }
 
-            string[] strGOGOTJA = new string[7] { null, null, null, null, null, null, null };
 
-            strGOGOTJA[0] = scoreStr[1].Replace(",", "");
-            strGOGOTJA[1] = strGOGOTJA[0].Replace("0", "");
-            strGOGOTJA[2] = strGOGOTJA[1].Replace("5", "");
-            strGOGOTJA[3] = strGOGOTJA[2].Replace("6", "");
-            strGOGOTJA[4] = strGOGOTJA[3].Replace("7", "");
-            strGOGOTJA[5] = strGOGOTJA[4].Replace("8", "");
-            strGOGOTJA[6] = strGOGOTJA[5].Replace("9", "");//譜面から「1234」以外を取り除く
+                string[] strGOGOTJA = new string[7] { null, null, null, null, null, null, null };
 
-            string[] RemoveGogo = new string[nGoGoCount + 1];
-            string RemovePause = null;
-            int[] GogoPosS = new int[nGoGoCount]; //GOGOSTARTの位置記憶用
-            int[] GogoPosE = new int[nGoGoCount]; //GOGOENDの位置記憶用
+                strGOGOTJA[0] = scoreStr[1].Replace(",", "");
+                strGOGOTJA[1] = strGOGOTJA[0].Replace("0", "");
+                strGOGOTJA[2] = strGOGOTJA[1].Replace("5", "");
+                strGOGOTJA[3] = strGOGOTJA[2].Replace("6", "");
+                strGOGOTJA[4] = strGOGOTJA[3].Replace("7", "");
+                strGOGOTJA[5] = strGOGOTJA[4].Replace("8", "");
+                strGOGOTJA[6] = strGOGOTJA[5].Replace("9", "");//譜面から「1234」以外を取り除く
 
-            for (int i = 0; i < nGoGoCount; i++)
+            if (bGogoExist)
             {
-                GogoPosS[i] = 0;
-                GogoPosE[i] = 0;
-            }
-            RemoveGogo[0] = strGOGOTJA[6];
+                string[] RemoveGogo = new string[nGoGoCount + 1];
+                string RemovePause = null;
+                int[] GogoPosS = new int[nGoGoCount]; //GOGOSTARTの位置記憶用
+                int[] GogoPosE = new int[nGoGoCount]; //GOGOENDの位置記憶用
 
-
-            for (int i = 0; i < nGoGoCount + 1; i++)
-            {
-                if (i != nGoGoCount)
+                for (int i = 0; i < nGoGoCount; i++)
                 {
-                    GogoPosS[i] = RemoveGogo[i].IndexOf("#GOGOSTART");
-                    RemovePause = RemoveGogo[i].Remove(GogoPosS[i], 10);
-                    GogoPosE[i] = RemovePause.IndexOf("#GOGOEND");
+                    GogoPosS[i] = 0;
+                    GogoPosE[i] = 0;
+                }
+                RemoveGogo[0] = strGOGOTJA[6];
+
+
+                for (int i = 0; i < nGoGoCount + 1; i++)
+                {
+                    if (i != nGoGoCount)
+                    {
+                        GogoPosS[i] = RemoveGogo[i].IndexOf("#GOGOSTART");
+                        RemovePause = RemoveGogo[i].Remove(GogoPosS[i], 10);
+                        GogoPosE[i] = RemovePause.IndexOf("#GOGOEND");
+                        if (GogoPosE[i] == -1)
+                        {
+                            RemoveGogo[i + 1] = RemovePause;
+                        }
+                        else
+                        {
+                            RemoveGogo[i + 1] = RemovePause.Remove(GogoPosE[i], 8);
+                        }
+                    }
+                }//ゴーゴーの位置確認、命令削除
+
+                for (int i = 0; i < 2; i++)
+                {
+                    tja12[i] = null;
+                    tja34[i] = null;
+                    tja0[i] = null;
+                }
+
+                tja12[0] = RemoveGogo[nGoGoCount].Replace("3", "0");
+                tja12[1] = tja12[0].Replace("4", "0");//1,2のみの譜面
+                tja34[0] = RemoveGogo[nGoGoCount].Replace("1", "0");
+                tja34[1] = tja34[0].Replace("2", "0");//3,4のみの譜面
+
+                tja0[0] = tja12[1].Replace("1", "0");
+                tja0[1] = tja0[0].Replace("2", "0");//すべて0の譜面。総音符数用(別に用意する必要あったかなこれ...)
+
+                nComboBonus = tja0[1].Length;
+                
+                string strG = null;//GOGOのみの譜面
+
+                string[] G = new string[nGoGoCount];
+                string[] GOGO = new string[nGoGoCount];
+
+                for (int i = 0; i < nGoGoCount; i++)
+                {
+                    G[i] = null;
+                    GOGO[i] = null;
+                }
+
+
+                strG = RemoveGogo[nGoGoCount];
+
+                if (GOGO[0] != null)
+                    GOGO[0] = tja0[1];
+
+                //ゴーゴーの位置を計測。コンボごとのノーツ数計算に使われる
+                for (int i = 0; i < nGoGoCount; i++)
+                {
                     if (GogoPosE[i] == -1)
                     {
-                        RemoveGogo[i + 1] = RemovePause;
+                        G[i] = strG.Substring(GogoPosS[i], RemoveGogo[nGoGoCount].Length - GogoPosS[i]);
                     }
                     else
                     {
-                        RemoveGogo[i + 1] = RemovePause.Remove(GogoPosE[i], 8);
+                        G[i] = strG.Substring(GogoPosS[i], GogoPosE[i] - GogoPosS[i]);
+                    }
+                    if (i == 0)
+                    {
+                        GOGO[0] = tja0[1].Insert(GogoPosS[i], G[i]);
+                    }
+                    else
+                    {
+                        GOGO[i] = GOGO[i - 1].Insert(GogoPosS[i], G[i]);
                     }
                 }
-            }//ゴーゴーの位置確認、命令削除
 
-                
-            tja12[0] = RemoveGogo[nGoGoCount].Replace("3", "0");
-            tja12[1] = tja12[0].Replace("4", "0");//1,2のみの譜面
-            tja34[0] = RemoveGogo[nGoGoCount].Replace("1", "0");
-            tja34[1] = tja34[0].Replace("2", "0");//3,4のみの譜面
-
-            tja0[0] = tja12[1].Replace("1", "0");
-            tja0[1] = tja0[0].Replace("2", "0");//すべて0の譜面。総音符数用(別に用意する必要あったかなこれ...)
-
-            string strG = null;//GOGOのみの譜面
-            string[] G = new string[nGoGoCount];
-            string[] GOGO = new string[nGoGoCount];
-
-            for (int i = 0; i < nGoGoCount; i++)
-            {
-                G[i] = null;
-                GOGO[i] = null;
-            }
-
-
-            strG = RemoveGogo[nGoGoCount];
-
-            GOGO[0] = tja0[1];
-
-            //ゴーゴーの位置を計測。コンボごとのノーツ数計算に使われる
-            for (int i = 0; i < nGoGoCount; i++)
-            {
-                if (GogoPosE[i] == -1)
+                //コンボごとのノーツ取得。
+                if (tja0[1].Length < 10)
                 {
-                    G[i] = strG.Substring(GogoPosS[i], RemoveGogo[nGoGoCount].Length - GogoPosS[i]);
+                    GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, tja0[1].Length);
+                    NORMALCombo[0] = strG.Substring(0, tja0[1].Length);
+                }
+                else if (tja0[1].Length < 30)
+                {
+                    GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
+                    GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, tja0[0].Length - 9);
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, tja0[1].Length - 9);
+
+                }
+                else if (tja0[1].Length < 50)
+                {
+                    GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
+                    GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
+                    GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, tja0[0].Length - 29);
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, tja0[1].Length - 29);
+                }
+                else if (tja0[1].Length < 100)
+                {
+                    GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
+                    GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
+                    GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, 20);
+                    GOGOCombo[3] = GOGO[nGoGoCount - 1].Substring(49, tja0[0].Length - 49);
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, 20);
+                    NORMALCombo[3] = strG.Substring(49, tja0[1].Length - 49);
                 }
                 else
                 {
-                    G[i] = strG.Substring(GogoPosS[i], GogoPosE[i] - GogoPosS[i]);
+                    GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
+                    GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
+                    GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, 20);
+                    GOGOCombo[3] = GOGO[nGoGoCount - 1].Substring(49, 50);
+                    GOGOCombo[4] = GOGO[nGoGoCount - 1].Substring(99, tja0[1].Length - 99);
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, 20);
+                    NORMALCombo[3] = strG.Substring(49, 50);
+                    NORMALCombo[4] = strG.Substring(99, tja0[1].Length - 99);
                 }
-                if (i == 0)
-                {
-                    GOGO[0] = tja0[1].Insert(GogoPosS[i], G[i]);
-                }
-                else
-                {
-                    GOGO[i] = GOGO[i - 1].Insert(GogoPosS[i], G[i]);
-                }
-            }
 
-            //コンボごとのノーツ取得。
-            if (tja0[1].Length < 10)
-            {
-                GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, tja0[1].Length);
-                NORMALCombo[0] = strG.Substring(0, tja0[1].Length);
-            }
-            else if (tja0[1].Length < 30)
-            {
-                GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
-                GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, tja0[0].Length - 9);
-                NORMALCombo[0] = strG.Substring(0, 9);
-                NORMALCombo[1] = strG.Substring(9, tja0[0].Length - 9);
+                //GOGOCombo[0～4] = 0 0～9コンボ 1 10～29コンボ......4 100～コンボのゴーゴー音符のみ抜き出したもの
 
-            }
-            else if (tja0[1].Length < 50)
-            {
-                GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
-                GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
-                GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, tja0[0].Length - 29);
-                NORMALCombo[0] = strG.Substring(0, 9);
-                NORMALCombo[1] = strG.Substring(9, 20);
-                NORMALCombo[2] = strG.Substring(29, tja0[0].Length - 29);
-            }
-            else if (tja0[1].Length < 100)
-            {
-                GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
-                GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
-                GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, 20);
-                GOGOCombo[3] = GOGO[nGoGoCount - 1].Substring(49, tja0[0].Length - 49);
-                NORMALCombo[0] = strG.Substring(0, 9);
-                NORMALCombo[1] = strG.Substring(9, 20);
-                NORMALCombo[2] = strG.Substring(29, 20);
-                NORMALCombo[3] = strG.Substring(49, tja0[0].Length - 49);
+                //GOGO[nGoGoCount - 1] === ゴーゴーの譜面以外0にしたもの
+                //こいつ...かなり使えるぞ...!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                //コンボごとのノーツ数計算
+                for (int i = 0; i < 5; i++)
+                {
+                    Nd[i] = CountChar(NORMALCombo[i], '1');
+                    Nk[i] = CountChar(NORMALCombo[i], '2');
+                    Ntd[i] = CountChar(NORMALCombo[i], '3');
+                    Ntk[i] = CountChar(NORMALCombo[i], '4');
+
+                    Gd[i] = CountChar(GOGOCombo[i], '1');
+                    Gk[i] = CountChar(GOGOCombo[i], '2');
+                    Gtd[i] = CountChar(GOGOCombo[i], '3');
+                    Gtk[i] = CountChar(GOGOCombo[i], '4');
+
+                }
+
+
+                for (int i = 0; i < 5; i++)
+                {
+                    gdk[i] = Gd[i] + Gk[i];
+                    gtdk[i] = Gtd[i] + Gtk[i];
+
+                    ndk[i] = Nd[i] + Nk[i] - gdk[i];
+                    ntdk[i] = Ntd[i] + Ntk[i] - gtdk[i];
+                }
             }
             else
             {
-                GOGOCombo[0] = GOGO[nGoGoCount - 1].Substring(0, 9);
-                GOGOCombo[1] = GOGO[nGoGoCount - 1].Substring(9, 20);
-                GOGOCombo[2] = GOGO[nGoGoCount - 1].Substring(29, 20);
-                GOGOCombo[3] = GOGO[nGoGoCount - 1].Substring(49, 50);
-                GOGOCombo[4] = GOGO[nGoGoCount - 1].Substring(99, tja0[1].Length - 99);
-                NORMALCombo[0] = strG.Substring(0, 9);
-                NORMALCombo[1] = strG.Substring(9, 20);
-                NORMALCombo[2] = strG.Substring(29, 20);
-                NORMALCombo[3] = strG.Substring(49, 50);
-                NORMALCombo[4] = strG.Substring(99, tja0[1].Length - 99);
+                string strG = strGOGOTJA[6];
+                nComboBonus = strGOGOTJA[6].Length;
+
+                if (strGOGOTJA[6].Length < 10)
+                {
+                    NORMALCombo[0] = strG.Substring(0, strGOGOTJA[6].Length);
+                }
+                else if (strGOGOTJA[6].Length < 30)
+                {
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, strGOGOTJA[6].Length - 9);
+
+                }
+                else if (strGOGOTJA[6].Length < 50)
+                {
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, strGOGOTJA[6].Length - 29);
+                }
+                else if (strGOGOTJA[6].Length < 100)
+                {
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, 20);
+                    NORMALCombo[3] = strG.Substring(49, strGOGOTJA[6].Length - 49);
+                }
+                else
+                {
+                    NORMALCombo[0] = strG.Substring(0, 9);
+                    NORMALCombo[1] = strG.Substring(9, 20);
+                    NORMALCombo[2] = strG.Substring(29, 20);
+                    NORMALCombo[3] = strG.Substring(49, 50);
+                    NORMALCombo[4] = strG.Substring(99, strGOGOTJA[6].Length - 99);
+                }
+
+                //コンボごとのノーツ数計算
+                for (int i = 0; i < 5; i++)
+                {
+                    Nd[i] = CountChar(NORMALCombo[i], '1');
+                    Nk[i] = CountChar(NORMALCombo[i], '2');
+                    Ntd[i] = CountChar(NORMALCombo[i], '3');
+                    Ntk[i] = CountChar(NORMALCombo[i], '4');
+
+                    Gd[i] = 0;
+                    Gk[i] = 0;
+                    Gtd[i] = 0;
+                    Gtk[i] = 0;
+
+                }
+
+
+                for (int i = 0; i < 5; i++)
+                {
+                    gdk[i] = 0;
+                    gtdk[i] = 0;
+
+                    ndk[i] = Nd[i] + Nk[i];
+                    ntdk[i] = Ntd[i] + Ntk[i];
+                }
+
+
             }
-
-            //GOGOCombo[0～4] = 0 0～9コンボ 1 10～29コンボ......4 100～コンボのゴーゴー音符のみ抜き出したもの
-
-            //GOGO[nGoGoCount - 1] === ゴーゴーの譜面以外0にしたもの
-            //こいつ...かなり使えるぞ...!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            //コンボごとのノーツ数計算
-            for (int i = 0; i < 5; i++)
-            {
-                Nd[i] = CountChar(NORMALCombo[i], '1');
-                Nk[i] = CountChar(NORMALCombo[i], '2');
-                Ntd[i] = CountChar(NORMALCombo[i], '3');
-                Ntk[i] = CountChar(NORMALCombo[i], '4');
-
-                Gd[i] = CountChar(GOGOCombo[i], '1');
-                Gk[i] = CountChar(GOGOCombo[i], '2');
-                Gtd[i] = CountChar(GOGOCombo[i], '3');
-                Gtk[i] = CountChar(GOGOCombo[i], '4');
-
-            }
-
-
-            for (int i = 0; i < 5; i++)
-            {
-                gdk[i] = Gd[i] + Gk[i];
-                gtdk[i] = Gtd[i] + Gtk[i];
-
-                ndk[i] = Nd[i] + Nk[i] - gdk[i];
-                ntdk[i] = Ntd[i] + Ntk[i] - gtdk[i];
-            }
-
 
             bRead = true;
             return true;
@@ -489,18 +571,16 @@ namespace ScoreCalculator
                 level = 0; //風船の数を数える。
                 bGogo = false; bStart = false; bEnd = false;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
                 fileNameWrite = null;
+                
                 for (int i = 0; i < 2; i++)
                 {
-                    tja12[i] = null;
-                    tja34[i] = null;
-                    tja0[i] = null;
-
                     scoreStr[i] = null;
 
                     balAmount[i] = 0;
                     baAmount[i] = 0;
                     baSum[i] = 0;
                 }
+                
                 for (int i = 0; i < 3; i++)
                 {
                     str[i] = null;
@@ -509,7 +589,7 @@ namespace ScoreCalculator
                 {
                     NORMALCombo[i] = null;
                     GOGOCombo[i] = null;
-
+                    
                     Nd[i] = 0;
                     Nk[i] = 0;
                     Ntd[i] = 0;
@@ -523,13 +603,16 @@ namespace ScoreCalculator
                     ntdk[i] = 0;
                     gdk[i] = 0;
                     gtdk[i] = 0;
+                   
                 }
                 for (int i = 0; i < bbalgogo.Count; i++)
                 {
                     bbalgogo[i] = false;
                 }
+                
                 strScoreInit = null;
                 strScoreDiff = null;
+                bGogoExist = false;
             }
         }
 
@@ -575,6 +658,8 @@ namespace ScoreCalculator
 
         public string fileNameWrite;
         public string strScoreInit, strScoreDiff;
+        public bool bGogoExist;
+        public int nComboBonus;
     }
 }
     

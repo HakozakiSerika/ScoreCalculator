@@ -44,6 +44,7 @@ namespace ScoreCalculator
                 writeText = writeText.Remove(nSD, tjaRead.strScoreDiff.Length);
                 writeText = writeText.Remove(nSI, tjaRead.strScoreInit.Length);
 
+
                 writeText = writeText.Insert(nSI, "SCOREINIT:" + calculate.ScoreInit);
                 writeText = writeText.Insert(nSD, "SCOREDIFF:" + calculate.ScoreDiff);
 
