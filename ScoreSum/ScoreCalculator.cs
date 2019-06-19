@@ -31,6 +31,7 @@ namespace ScoreCalculator
         Calculate calculate = new Calculate();
         CScoreInit scoreInit = new CScoreInit();
         CScoreDiff scoreDiff = new CScoreDiff();
+        CShinuchi shinuchi = new CShinuchi();
         Write write = new Write();
 
         public ScoreCal_Form1()
@@ -256,6 +257,11 @@ namespace ScoreCalculator
         {
             if (tjaRead.bRead)
             write.WriteScore(tjaRead, calculate,this);
+        }
+
+        private void ShinuchiUD_ValueChanged(object sender, EventArgs e)
+        {
+            shinuchi.ShinuchiUDValueChanged(this, tjaRead, calculate);
         }
     }
     

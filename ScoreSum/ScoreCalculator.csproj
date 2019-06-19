@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Calculate.cs" />
     <Compile Include="CScoreDiff.cs" />
+    <Compile Include="CShinuchi.cs" />
     <Compile Include="ScoreCalculator.cs">
       <SubType>Form</SubType>
     </Compile>

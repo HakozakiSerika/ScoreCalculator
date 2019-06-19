@@ -10,6 +10,8 @@ namespace ScoreCalculator
     class CScoreDiff
     {
         Calculate calculate = new Calculate();
+
+        
         public void ScoreDiffValueChanged(ScoreCal_Form1 mainForm, TJARead tjaRead, Calculate calculate)
         {
             calculate.ScoreDiff = (int)mainForm.DIFFM.Value;

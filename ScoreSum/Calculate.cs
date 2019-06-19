@@ -70,7 +70,7 @@ namespace ScoreCalculator
 
 
 
-
+                //通常スコア
                 while (((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (tjaRead.baAmount[0] - tjaRead.baSum[0]) * 300 + (tjaRead.baAmount[1] - tjaRead.baSum[1]) * 360 + tjaRead.baSum[0] * 5000 + tjaRead.baSum[1] * 6000)) < Score)
                 {
                     int n;
@@ -108,6 +108,16 @@ namespace ScoreCalculator
                     }
                 }
 
+                //真打スコア
+                for (int i = 0; i < 5; i++)
+                {
+                    shinuchiNotes += tjaRead.ndk[i] + tjaRead.ntdk[i] * 2 + tjaRead.gdk[i] + tjaRead.gtdk[i] * 2;
+                }
+                while (shinuchiNotes * shinuchiInit + (tjaRead.baAmount[0] - tjaRead.baSum[0]) * 300 + (tjaRead.baAmount[1] - tjaRead.baSum[1]) * 300 + (tjaRead.baSum[0] * 5000 + tjaRead.baSum[1] * 5000) < 1000000)
+                {
+                    shinuchiInit += 10;
+                }
+
                 #region 読み込み後テキスト
                 mainForm.Total.Text = tjaRead.nComboBonus.ToString();
                 mainForm.Difficulty.Text = tjaRead.level.ToString();
@@ -135,7 +145,9 @@ namespace ScoreCalculator
                 mainForm.TJAName.Text = tjaRead.ofd.SafeFileName;
                 mainForm.INITM.Text = ScoreInit.ToString();
                 mainForm.DIFFM.Text = ScoreDiff.ToString();
+                mainForm.ShinuchiUD.Text = shinuchiInit.ToString();
                 mainForm.re.Text = ((calNdk[0] + calNdk[1] + calNdk[2] + calNdk[3] + calNdk[4] + calNtdk[0] + calNtdk[1] + calNtdk[2] + calNtdk[3] + calNtdk[4] + calGdk[0] + calGdk[1] + calGdk[2] + calGdk[3] + calGdk[4] + calGtdk[0] + calGtdk[1] + calGtdk[2] + calGtdk[3] + calGtdk[4]) + (ComboBonus * 10000 + (tjaRead.baAmount[0] - tjaRead.baSum[0]) * 300 + (tjaRead.baAmount[1] - tjaRead.baSum[1]) * 360 + tjaRead.baSum[0] * 5000 + tjaRead.baSum[1] * 6000)).ToString();
+                mainForm.ShinuchiValue.Text = (shinuchiNotes * shinuchiInit + (tjaRead.baAmount[0] - tjaRead.baSum[0]) * 300 + (tjaRead.baAmount[1] - tjaRead.baSum[1]) * 300 + (tjaRead.baSum[0] * 5000 + tjaRead.baSum[1] * 5000)).ToString();
                 mainForm.basum0.Text = tjaRead.baSum[0].ToString();
                 mainForm.basum1.Text = tjaRead.baSum[1].ToString();
                 mainForm.baamount0.Text = tjaRead.baAmount[0].ToString();
@@ -167,7 +179,7 @@ namespace ScoreCalculator
                 calGdk[i] = 0;
                 calGtdk[i] = 0;
             }
-
+            shinuchiNotes = 0;
 
         }
 
@@ -178,6 +190,7 @@ namespace ScoreCalculator
         public int[] calNtdk = new int[5];
         public int[] calGdk = new int[5];
         public int[] calGtdk = new int[5];
+        public int shinuchiNotes, shinuchiInit;
 
     }
 }

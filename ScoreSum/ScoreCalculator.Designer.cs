@@ -83,10 +83,15 @@
             this.INITM = new System.Windows.Forms.NumericUpDown();
             this.DIFFM = new System.Windows.Forms.NumericUpDown();
             this.Write = new System.Windows.Forms.Button();
+            this.Shinuchi = new System.Windows.Forms.Label();
+            this.ShinuchiUD = new System.Windows.Forms.NumericUpDown();
+            this.ShinuchiText = new System.Windows.Forms.Label();
+            this.ShinuchiValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DIFFM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShinuchiUD)).BeginInit();
             this.SuspendLayout();
             // 
             // TJAReader
@@ -417,7 +422,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label13.Location = new System.Drawing.Point(571, 152);
+            this.label13.Location = new System.Drawing.Point(571, 172);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(88, 25);
             this.label13.TabIndex = 49;
@@ -428,7 +433,7 @@
             // 
             this.re.AutoSize = true;
             this.re.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.re.Location = new System.Drawing.Point(665, 152);
+            this.re.Location = new System.Drawing.Point(665, 172);
             this.re.Name = "re";
             this.re.Size = new System.Drawing.Size(48, 25);
             this.re.TabIndex = 50;
@@ -441,7 +446,7 @@
             0,
             0,
             0});
-            this.ScoreUD.Location = new System.Drawing.Point(541, 225);
+            this.ScoreUD.Location = new System.Drawing.Point(541, 255);
             this.ScoreUD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ScoreUD.Maximum = new decimal(new int[] {
             2000000,
@@ -466,7 +471,7 @@
             // スコア基準
             // 
             this.スコア基準.AutoSize = true;
-            this.スコア基準.Location = new System.Drawing.Point(467, 228);
+            this.スコア基準.Location = new System.Drawing.Point(467, 258);
             this.スコア基準.Name = "スコア基準";
             this.スコア基準.Size = new System.Drawing.Size(69, 15);
             this.スコア基準.TabIndex = 53;
@@ -480,7 +485,7 @@
             0,
             0,
             65536});
-            this.Diff比率.Location = new System.Drawing.Point(541, 262);
+            this.Diff比率.Location = new System.Drawing.Point(541, 283);
             this.Diff比率.Margin = new System.Windows.Forms.Padding(4);
             this.Diff比率.Maximum = new decimal(new int[] {
             10,
@@ -505,7 +510,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(467, 264);
+            this.label7.Location = new System.Drawing.Point(467, 285);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 15);
@@ -663,7 +668,65 @@
             this.Write.TabIndex = 74;
             this.Write.Text = "SCOREINIT,DIFF書き出し";
             this.Write.UseVisualStyleBackColor = true;
+            this.Write.Visible = false;
             this.Write.Click += new System.EventHandler(this.Write_Click);
+            // 
+            // Shinuchi
+            // 
+            this.Shinuchi.AutoSize = true;
+            this.Shinuchi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Shinuchi.ForeColor = System.Drawing.Color.Red;
+            this.Shinuchi.Location = new System.Drawing.Point(586, 132);
+            this.Shinuchi.Name = "Shinuchi";
+            this.Shinuchi.Size = new System.Drawing.Size(67, 25);
+            this.Shinuchi.TabIndex = 75;
+            this.Shinuchi.Text = "真打=";
+            this.Shinuchi.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // ShinuchiUD
+            // 
+            this.ShinuchiUD.ForeColor = System.Drawing.Color.Red;
+            this.ShinuchiUD.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.ShinuchiUD.Location = new System.Drawing.Point(668, 132);
+            this.ShinuchiUD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ShinuchiUD.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.ShinuchiUD.Name = "ShinuchiUD";
+            this.ShinuchiUD.Size = new System.Drawing.Size(83, 22);
+            this.ShinuchiUD.TabIndex = 76;
+            this.ShinuchiUD.ValueChanged += new System.EventHandler(this.ShinuchiUD_ValueChanged);
+            // 
+            // ShinuchiText
+            // 
+            this.ShinuchiText.AutoSize = true;
+            this.ShinuchiText.BackColor = System.Drawing.SystemColors.Control;
+            this.ShinuchiText.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ShinuchiText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShinuchiText.ForeColor = System.Drawing.Color.Red;
+            this.ShinuchiText.Location = new System.Drawing.Point(529, 197);
+            this.ShinuchiText.Name = "ShinuchiText";
+            this.ShinuchiText.Size = new System.Drawing.Size(130, 25);
+            this.ShinuchiText.TabIndex = 77;
+            this.ShinuchiText.Text = "真打天井点=";
+            this.ShinuchiText.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // ShinuchiValue
+            // 
+            this.ShinuchiValue.AutoSize = true;
+            this.ShinuchiValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ShinuchiValue.ForeColor = System.Drawing.Color.Red;
+            this.ShinuchiValue.Location = new System.Drawing.Point(665, 197);
+            this.ShinuchiValue.Name = "ShinuchiValue";
+            this.ShinuchiValue.Size = new System.Drawing.Size(48, 25);
+            this.ShinuchiValue.TabIndex = 78;
+            this.ShinuchiValue.Text = "???";
             // 
             // ScoreCal_Form1
             // 
@@ -671,6 +734,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 546);
+            this.Controls.Add(this.ShinuchiValue);
+            this.Controls.Add(this.ShinuchiText);
+            this.Controls.Add(this.ShinuchiUD);
+            this.Controls.Add(this.Shinuchi);
             this.Controls.Add(this.Write);
             this.Controls.Add(this.DIFFM);
             this.Controls.Add(this.INITM);
@@ -736,6 +803,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DIFFM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShinuchiUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -796,6 +864,10 @@
         public System.Windows.Forms.Label TJAName;
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Write;
+        private System.Windows.Forms.Label Shinuchi;
+        public System.Windows.Forms.NumericUpDown ShinuchiUD;
+        private System.Windows.Forms.Label ShinuchiText;
+        public System.Windows.Forms.Label ShinuchiValue;
     }
 }
 
