@@ -489,7 +489,7 @@ namespace ScoreCalculator
 
             }
 
-            bRead = true;
+            bRead = true;            
             return true;
         }
         public string GetBetweenStrings(string str1, string str2, string orgStr)

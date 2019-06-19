@@ -159,6 +159,7 @@ namespace ScoreCalculator
             if (bRead)
             {
                 mainForm.TJAReader.Text = "別のTJAファイルを読み込む";
+                mainForm.Text = "TJAScoreCalculator..." + tjaRead.ofd.SafeFileName;
             }
 
 
