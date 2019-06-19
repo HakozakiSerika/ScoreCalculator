@@ -263,6 +263,7 @@ namespace ScoreCalculator
         {
             shinuchi.ShinuchiUDValueChanged(this, tjaRead, calculate);
         }
+
     }
     
 
