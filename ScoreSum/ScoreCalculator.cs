@@ -238,6 +238,11 @@ namespace ScoreCalculator
                 return;
             }
             calculate.Calculated(this, tjaRead);
+            if (path.LastIndexOf('\\') > -1)
+            {
+                this.Text = "TJAScoreCalculator..." + path.Substring(path.LastIndexOf('\\') + 1);
+                this.TJAName.Text = path.Substring(path.LastIndexOf('\\') + 1);
+            } //外国のPCで動かない可能性
         }
 
         private void ScoreCal_Form1_DragEnter(object sender, DragEventArgs e)
@@ -263,7 +268,6 @@ namespace ScoreCalculator
         {
             shinuchi.ShinuchiUDValueChanged(this, tjaRead, calculate);
         }
-
     }
     
 

@@ -141,7 +141,7 @@ namespace ScoreCalculator
                 mainForm.gtdk2.Text = tjaRead.gtdk[2].ToString();
                 mainForm.gtdk3.Text = tjaRead.gtdk[3].ToString();
                 mainForm.gtdk4.Text = tjaRead.gtdk[4].ToString();
-                mainForm.textBox1.Text = tjaRead.str[2];
+                mainForm.textBox1.Text = tjaRead.nComboBonus.ToString(); //tjaRead.str[2];
                 mainForm.TJAName.Text = tjaRead.ofd.SafeFileName;
                 mainForm.INITM.Text = ScoreInit.ToString();
                 mainForm.DIFFM.Text = ScoreDiff.ToString();

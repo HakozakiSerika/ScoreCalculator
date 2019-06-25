@@ -248,7 +248,7 @@ namespace ScoreCalculator
             }
 
 
-                string[] strGOGOTJA = new string[7] { null, null, null, null, null, null, null };
+                string[] strGOGOTJA = new string[8] { null, null, null, null, null, null, null, null};
 
                 strGOGOTJA[0] = scoreStr[1].Replace(",", "");
                 strGOGOTJA[1] = strGOGOTJA[0].Replace("0", "");
@@ -306,8 +306,10 @@ namespace ScoreCalculator
                 tja0[0] = tja12[1].Replace("1", "0");
                 tja0[1] = tja0[0].Replace("2", "0");//すべて0の譜面。総音符数用(別に用意する必要あったかなこれ...)
 
-                nComboBonus = tja0[1].Length;
-                
+                nComboBonus = tja0[1].Replace(" ", "").Length;
+                debug = tja0[1].Replace(" ", "");
+
+
                 string strG = null;//GOGOのみの譜面
 
                 string[] G = new string[nGoGoCount];
@@ -427,7 +429,7 @@ namespace ScoreCalculator
             else
             {
                 string strG = strGOGOTJA[6];
-                nComboBonus = strGOGOTJA[6].Length;
+                nComboBonus = strGOGOTJA[6].Replace(" ","").Length;
 
                 if (strGOGOTJA[6].Length < 10)
                 {
@@ -660,6 +662,7 @@ namespace ScoreCalculator
         public string strScoreInit, strScoreDiff;
         public bool bGogoExist;
         public int nComboBonus;
+        public string debug;
     }
 }
     
