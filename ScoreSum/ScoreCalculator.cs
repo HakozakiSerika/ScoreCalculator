@@ -33,6 +33,8 @@ namespace ScoreCalculator
         CScoreDiff scoreDiff = new CScoreDiff();
         CShinuchi shinuchi = new CShinuchi();
         Write write = new Write();
+        SelectedCourse sc = new SelectedCourse();
+        ReCalculate RC = new ReCalculate();
 
         public ScoreCal_Form1()
         {
@@ -257,7 +259,6 @@ namespace ScoreCalculator
                 e.Effect = DragDropEffects.None;
             }
         }
-
         private void Write_Click(object sender, EventArgs e)
         {
             if (tjaRead.bRead)
@@ -268,6 +269,62 @@ namespace ScoreCalculator
         {
             shinuchi.ShinuchiUDValueChanged(this, tjaRead, calculate);
         }
+
+        private void easy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (calculate.bRead && easy.Checked)
+            {
+                sc.Selected(0, tjaRead);
+                RC.ReCalculated(this, sc, 0);
+            }
+        }
+
+        private void normal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (calculate.bRead && normal.Checked)
+            {
+                sc.Selected(1, tjaRead);
+                RC.ReCalculated(this, sc, 1);
+            }
+        }
+
+        private void hard_CheckedChanged(object sender, EventArgs e)
+        {
+            if (calculate.bRead && hard.Checked)
+            {
+                sc.Selected(2, tjaRead);
+                RC.ReCalculated(this, sc, 2);
+            }
+        }
+
+        private void oni_CheckedChanged(object sender, EventArgs e)
+        {
+            if (calculate.bRead && oni.Checked)
+            {
+                sc.Selected(3, tjaRead);
+                RC.ReCalculated(this, sc, 3);
+            }
+        }
+
+        private void edit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (calculate.bRead && edit.Checked)
+            {
+                sc.Selected(4, tjaRead);
+                RC.ReCalculated(this, sc, 4);
+            }
+        }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+            n++;
+            if (n >= 10)
+                label21.Text = "もちょだよ～(●・▽・●)";
+            if (n >= 20)
+                label21.Text = "おわりだよ～(●・▽・●)";
+        }
+
+        private int n;
     }
     
 

@@ -4,42 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Windows.Forms;
-
 
 namespace ScoreCalculator
 {
-    class TJARead
+    /// <summary>
+    /// 
+    /// </summary>
+    class SelectedCourse
     {
-        public TJARead()
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public SelectedCourse()
         {
-            ResetValue();
+
         }
 
-        public TJARead(string fileName = null)
+        public void Selected(int courseNumber, TJARead tjaRead)
         {
-            ResetValue();
-        }
-        public bool TJAReader(string fileName = null)
-        {
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                ofd.FileName = "TJA.tja";
-                ofd.InitialDirectory = @"C:\";
-                ofd.Filter = "TJAファイル(*.tja)|*.tja;";
-                ofd.Title = "ファイルを開く";
-                ofd.RestoreDirectory = true;
-                if (ofd.ShowDialog() != DialogResult.OK)
-                {
-                    return false;
-                }
-            }
-
-            TJA = new StreamReader(string.IsNullOrWhiteSpace(fileName) ? ofd.FileName : fileName, Encoding.GetEncoding("shift_jis"));
-            ResetValue();
-            fileNameWrite = fileName;
-
-            while (TJA.EndOfStream == false)
+            ResetValue(tjaRead);
+            nSelectCourse = courseNumber;
+            TJA = new StringReader(tjaRead.str[2]);
+            //ここに各種情報を書き込みなおしてcalにわたす
+            //Course変更のひつような値の初期化をするメソッドを作る(のちほど
+            while (TJA.Peek() > -1)
             {
                 tja = TJA.ReadLine();
 
@@ -59,8 +47,8 @@ namespace ScoreCalculator
                 n14 = tja.IndexOf("9");
                 n15 = tja.IndexOf("8");
 
-                str[2] += tja + Environment.NewLine;
 
+                str[2] += tja + Environment.NewLine;
                 if (n13 >= 0)
                 {
                     string sCourseNumber = tja.Substring(n13 + 7);
@@ -94,9 +82,13 @@ namespace ScoreCalculator
                             break;
                     }
 
-                    bCourseStart[nCourseNumber] = true;
-                    bCourseExist[nCourseNumber] = true;                    
                 }
+
+                if (nCourseNumber != courseNumber)
+                {
+                    continue;
+                }
+
                 //#STARTと#ENDの間の文字列を取得する用
                 if (n9 >= 0)
                 {
@@ -105,7 +97,6 @@ namespace ScoreCalculator
                 else if (n10 >= 0)
                 {
                     bEnd = true;
-                    bCourseStart[nCourseNumber] = false;
                 }
 
                 //コメントがある場合は取り除いたものを別の変数に入れる
@@ -123,7 +114,7 @@ namespace ScoreCalculator
                 {
                     strScoreDiff = tja;
                 }
-                if (!bEnd)
+                if (!bEnd && nSelectCourse == nCourseNumber)
                 {
                     //GOGOかどうか
                     if (n4 >= 0)
@@ -196,11 +187,11 @@ namespace ScoreCalculator
                     {
                         if (n3 >= 0)
                         {
-                            nballoonEnumCount += CountChar(tjacom, '7');
+                            nballoonEnumCount += tjaRead.CountChar(tjacom, '7');
                         }
                         else
                         {
-                            nballoonEnumCount += CountChar(tja, '7');
+                            nballoonEnumCount += tjaRead.CountChar(tja, '7');
                         }
 
                         //ゴーゴーで得点が違うのでこちらも分ける。
@@ -219,7 +210,6 @@ namespace ScoreCalculator
                             }
                         }
                         nbEComp = nballoonEnumCount;
-
                     }
 
                     if ((bStart && n1 == -1 && n2 == -1 && n14 >= 0) && !bRoll)
@@ -259,6 +249,7 @@ namespace ScoreCalculator
                     }
 
 
+
                     /*
                     if ((n1 == -1 && n2 == -1 && n3 == -1 && bGogo == false) || (n4 >= 0) || (n5 >= 0))
                     {
@@ -279,7 +270,6 @@ namespace ScoreCalculator
                     */
                 }
             }
-            //TJA.Close();
             //ヘッダからいらない文字を抜く
             balloon = strballoon?.Replace("BALLOON:", "");
             level = int.Parse(strlevel?.Replace("LEVEL:", ""));
@@ -292,9 +282,10 @@ namespace ScoreCalculator
                 }
             }
 
+
             //風船の個数を求める
             if (!string.IsNullOrWhiteSpace(balloon))
-                balloonCount = CountChar(balloon, ',') + 1;
+                balloonCount = tjaRead.CountChar(balloon, ',') + 1;
             else
                 balloonCount = 0;
 
@@ -303,7 +294,7 @@ namespace ScoreCalculator
             {
                 for (int i = 0; i < balloonCount; i++)
                 {
-                    balValue.Add(strToInt(balloon)[i]);
+                    balValue.Add(tjaRead.strToInt(balloon)[i]);
                 }
             }
             else
@@ -405,7 +396,6 @@ namespace ScoreCalculator
                 tja0[1] = tja0[0].Replace("2", "0");//すべて0の譜面。総音符数用(別に用意する必要あったかなこれ...)
 
                 nComboBonus = tja0[1].Replace(" ", "").Length;
-                debug = tja0[1].Replace(" ", "");
 
 
                 string strG = null;//GOGOのみの譜面
@@ -502,15 +492,15 @@ namespace ScoreCalculator
                 //コンボごとのノーツ数計算
                 for (int i = 0; i < 5; i++)
                 {
-                    Nd[i] = CountChar(NORMALCombo[i], '1');
-                    Nk[i] = CountChar(NORMALCombo[i], '2');
-                    Ntd[i] = CountChar(NORMALCombo[i], '3');
-                    Ntk[i] = CountChar(NORMALCombo[i], '4');
+                    Nd[i] = tjaRead.CountChar(NORMALCombo[i], '1');
+                    Nk[i] = tjaRead.CountChar(NORMALCombo[i], '2');
+                    Ntd[i] = tjaRead.CountChar(NORMALCombo[i], '3');
+                    Ntk[i] = tjaRead.CountChar(NORMALCombo[i], '4');
 
-                    Gd[i] = CountChar(GOGOCombo[i], '1');
-                    Gk[i] = CountChar(GOGOCombo[i], '2');
-                    Gtd[i] = CountChar(GOGOCombo[i], '3');
-                    Gtk[i] = CountChar(GOGOCombo[i], '4');
+                    Gd[i] = tjaRead.CountChar(GOGOCombo[i], '1');
+                    Gk[i] = tjaRead.CountChar(GOGOCombo[i], '2');
+                    Gtd[i] = tjaRead.CountChar(GOGOCombo[i], '3');
+                    Gtk[i] = tjaRead.CountChar(GOGOCombo[i], '4');
 
                 }
 
@@ -564,10 +554,10 @@ namespace ScoreCalculator
                 //コンボごとのノーツ数計算
                 for (int i = 0; i < 5; i++)
                 {
-                    Nd[i] = CountChar(NORMALCombo[i], '1');
-                    Nk[i] = CountChar(NORMALCombo[i], '2');
-                    Ntd[i] = CountChar(NORMALCombo[i], '3');
-                    Ntk[i] = CountChar(NORMALCombo[i], '4');
+                    Nd[i] = tjaRead.CountChar(NORMALCombo[i], '1');
+                    Nk[i] = tjaRead.CountChar(NORMALCombo[i], '2');
+                    Ntd[i] = tjaRead.CountChar(NORMALCombo[i], '3');
+                    Ntk[i] = tjaRead.CountChar(NORMALCombo[i], '4');
 
                     Gd[i] = 0;
                     Gk[i] = 0;
@@ -588,61 +578,10 @@ namespace ScoreCalculator
 
 
             }
-
-            bRead = true;
-            return true;
-        }
-        public string GetBetweenStrings(string str1, string str2, string orgStr)
-        {
-            int orgLen = orgStr.Length;
-            int str1Len = str1.Length;
-
-            int str1Num = orgStr.IndexOf(str1);
-
-            string s = "";
-
-            try
-            {
-                s = orgStr.Remove(0, str1Num + str1Len);
-                int str2Num = s.IndexOf(str2);
-                s = s.Remove(str2Num);
-            }
-            catch (Exception)
-            {
-                return orgStr;
-            }
-
-            return s;
         }
 
-        public int CountChar(string s, char c)
+        public void ResetValue(TJARead tjaRead)
         {
-            if (string.IsNullOrEmpty(s)) return 0; // nullないし空文字であればとりあえずその文字はないはずなので0を返す。
-            return s.Length - s.Replace(c.ToString(), "").Length;
-        }
-
-        public int[] strToInt(string str)
-        {
-            if (String.IsNullOrEmpty(str))
-                return null;
-
-            string[] strArray = str.Split(',');
-            List<int> listIntArray;
-            listIntArray = new List<int>();
-
-            for (int n = 0; n < strArray.Length; n++)
-            {
-                int n1 = Convert.ToInt32(strArray[n]);
-                listIntArray.Add(n1);
-            }
-            int[] nArray = new int[] { 1 };
-            nArray = listIntArray.ToArray();
-
-            return nArray;
-        }
-        public void ResetValue()
-        {
-            
             tja = null;
             tjacom = null;
             nballoonEnumCount = 0;
@@ -663,25 +602,21 @@ namespace ScoreCalculator
             n11 = 0;
             n12 = 0;
             n13 = 0;
-            n14 = 0;
-            n15 = 0;
-            
+
             nGoGoCount = 0; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
             balloonCount = 0;
-            level = 0; //風船の数を数える。
+            level = 0;
             bGogo = false; bStart = false; bEnd = false;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
-            fileNameWrite = null;
-            
+        
             for (int i = 0; i < 2; i++)
             {
                 scoreStr[i] = null;
-                
+
 
                 baAmount[i] = 0;
                 baSum[i] = 0;
-                
-            }
 
+            }
 
             for (int i = 0; i < 3; i++)
             {
@@ -705,8 +640,6 @@ namespace ScoreCalculator
                 ntdk[i] = 0;
                 gdk[i] = 0;
                 gtdk[i] = 0;
-
-                bCourseExist[i] = false;
 
             }
             /*
@@ -737,65 +670,96 @@ namespace ScoreCalculator
             bKusudamaExist = false;
             nCourseNumber = 0;
             nSelectCourse = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                bCourseExist[i] = false;
-                bCourseStart[i] = false;
-            }
         }
 
+        public StringReader TJA;
+        public string tja;
+        public string tjacom = null;
+        public int nballoonEnumCount = 0;
+        public int nbEComp = 0; //これなんだっけ...
+        public string strballoon = null;
+        public string balloon = null;
+        public string strlevel = null; //ヘッダ情報抜き出し用。
+        public int n1 = 0;
+        public int n2 = 0;
+        public int n3 = 0;
+        public int n4 = 0;
+        public int n5 = 0;
+        public int n6 = 0;
+        public int n7 = 0;
+        public int n8 = 0;
+        public int n9 = 0;
+        public int n10 = 0;
+        public int n11 = 0;
+        public int n12 = 0;
+        public int n13 = 0;
+        public int n14 = 0;
+        public int n15 = 0;
 
-        public OpenFileDialog ofd = new OpenFileDialog();
-        public StreamReader TJA = null;
-        public SelectedCourse sc = new SelectedCourse();
+        public int nGoGoCount = 0; //n1～10:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
+        public int balloonCount = 0;
+        public int level = 0;
+        public bool bGogo = false, bStart = false, bEnd = false;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
+        public bool bRoll = false;
 
-        public string tja = null, tjacom = null; //読み込み用変数 tjacomはコメントがついている行の処理用
-        public string[] str = new string[3] { null, null, null }; //読み取った文字列を保存する用 0:総ノーツ用 1:GOGO判別用 2:表示用
-        public string[] scoreStr = new string[2] { null, null }; //0や5～9がない「ノーツのみ」のものを作る用
-        public int nballoonEnumCount = 0, nbEComp = 0; //これなんだっけ...
-        public List<bool> bbalgogo = new List<bool>(); //ふうせんがゴーゴーか判別するもの。これ一番どうにかしたい
-        public string strballoon, balloon, strlevel; //ヘッダ情報抜き出し用。
-        public int n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15, nGoGoCount; //n1～13:その行に対象の文字があるかどうか判別するためのもの nGogoCount：ゴーゴーの回数を数える
-        public int balloonCount, level; //風船の数を数える。
-        public bool bGogo, bStart, bEnd;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
-        public bool[] bCourseExist = new bool[5] { false, false, false, false, false };
-        public bool[] bCourseStart = new bool[5] { false, false, false, false, false };
-        public int nCourseNumber = 0;
-        public int nSelectCourse = 0;
-        public bool bRoll = false, bKusudamaExist = false;
+        public string[] scoreStr = new string[2];
+
+
+        public int[] baAmount = new int[2];
+        public int[] baSum = new int[2];
 
         public string[] tja12 = new string[2] { null, null };//1,2のみの譜面。3,4は0に置き換え
         public string[] tja34 = new string[2] { null, null };//3,4のみの譜面。1,2は0に置き換え
         public string[] tja0 = new string[2] { null, null };//最大コンボ数の数だけ0が出力される文字列。これ使えないかなあ...
 
-        public string[] NORMALCombo = new string[5] { null, null, null, null, null };//譜面解析用
-        public string[] GOGOCombo = new string[5] { null, null, null, null, null };
 
-        public int[] Nd = new int[5] { 0, 0, 0, 0, 0 };//N:非ゴーゴー G:ゴーゴー
-        public int[] Nk = new int[5] { 0, 0, 0, 0, 0 };//d:ドン k:カッ t:特音符
-        public int[] Ntd = new int[5] { 0, 0, 0, 0, 0 };
-        public int[] Ntk = new int[5] { 0, 0, 0, 0, 0 };
-        public int[] Gd = new int[5] { 0, 0, 0, 0, 0 };
-        public int[] Gk = new int[5] { 0, 0, 0, 0, 0 };
-        public int[] Gtd = new int[5] { 0, 0, 0, 0, 0 };
-        public int[] Gtk = new int[5] { 0, 0, 0, 0, 0 };
 
-        public int[] ndk = new int[5] { 0, 0, 0, 0, 0 }; //普通小音符合計
-        public int[] ntdk = new int[5] { 0, 0, 0, 0, 0 };//普通大音符合計
-        public int[] gdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー小音符合計
-        public int[] gtdk = new int[5] { 0, 0, 0, 0, 0 };//ゴーゴー大音符合計
+        public string[] str = new string[3];
+        public string[] NORMALCombo = new string[5];
+        public string[] GOGOCombo = new string[5];
 
-        public List<int> balValue = new List<int>();
-        public int[] baAmount = new int[2] { 0, 0 };//風船打数
-        public int[] baSum = new int[2] { 0, 0 };//風船個数
+        public int[] Nd = new int[5];
+        public int[] Nk = new int[5];
+        public int[] Ntd = new int[5];
+        public int[] Ntk = new int[5];
+        public int[] Gd = new int[5];
+        public int[] Gk = new int[5];
+        public int[] Gtd = new int[5];
+        public int[] Gtk = new int[5];
 
-        public bool bRead;
+        public int[] ndk = new int[5];
+        public int[] ntdk = new int[5];
+        public int[] gdk = new int[5];
+        public int[] gtdk = new int[5];
 
-        public string fileNameWrite;
-        public string strScoreInit, strScoreDiff;
-        public bool bGogoExist;
-        public int nComboBonus;
-        public string debug;
+        public int nComboBonus = 0;
+        /*
+        for (int i = 0; i < bbalgogo.Count; i++)
+        {
+            bbalgogo[i] = false;
+        }
+        */
+        /*
+        for (int i = 0; i < bbalgogo.Count; i++)
+        {
+            bbalgogo[i] = false;
+            bbalgogo.RemoveAt(i);
+        }
+        for (int i = 0; i < balValue.Count; i++)
+        {
+            balValue[i] = 0;
+            balValue.RemoveAt(i);
+        }
+        */
+        List<bool> bbalgogo = new List<bool>();
+        List<int> balValue = new List<int>();
+
+        public string strScoreInit = null;
+        public string strScoreDiff = null;
+        public bool bGogoExist = false, bKusudamaExist = false;
+        public int nSelectCourse = 0, nCourseNumber = 0;
+        public bool[] bCourseStart = new bool[5];
+
     }
 }
-    
+

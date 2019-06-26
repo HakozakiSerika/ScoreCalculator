@@ -87,6 +87,12 @@
             this.ShinuchiUD = new System.Windows.Forms.NumericUpDown();
             this.ShinuchiText = new System.Windows.Forms.Label();
             this.ShinuchiValue = new System.Windows.Forms.Label();
+            this.easy = new System.Windows.Forms.RadioButton();
+            this.normal = new System.Windows.Forms.RadioButton();
+            this.hard = new System.Windows.Forms.RadioButton();
+            this.oni = new System.Windows.Forms.RadioButton();
+            this.edit = new System.Windows.Forms.RadioButton();
+            this.Kusudama = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Diff比率)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.INITM)).BeginInit();
@@ -550,6 +556,7 @@
             this.label15.Size = new System.Drawing.Size(105, 15);
             this.label15.TabIndex = 63;
             this.label15.Text = "通常風船個数=";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label18
             // 
@@ -560,6 +567,7 @@
             this.label18.Size = new System.Drawing.Size(105, 15);
             this.label18.TabIndex = 64;
             this.label18.Text = "通常風船打数=";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label19
             // 
@@ -570,6 +578,7 @@
             this.label19.Size = new System.Drawing.Size(123, 15);
             this.label19.TabIndex = 65;
             this.label19.Text = "ゴーゴー風船個数=";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label20
             // 
@@ -580,6 +589,7 @@
             this.label20.Size = new System.Drawing.Size(123, 15);
             this.label20.TabIndex = 66;
             this.label20.Text = "ゴーゴー風船打数=";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // basum0
             // 
@@ -621,11 +631,13 @@
             // 
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.label21.Location = new System.Drawing.Point(836, 520);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(44, 15);
             this.label21.TabIndex = 71;
-            this.label21.Text = "v2.3.1";
+            this.label21.Text = "v2.4.0";
+            this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // INITM
             // 
@@ -728,12 +740,98 @@
             this.ShinuchiValue.TabIndex = 78;
             this.ShinuchiValue.Text = "???";
             // 
+            // easy
+            // 
+            this.easy.AutoSize = true;
+            this.easy.Enabled = false;
+            this.easy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.easy.Location = new System.Drawing.Point(260, 234);
+            this.easy.Name = "easy";
+            this.easy.Size = new System.Drawing.Size(76, 19);
+            this.easy.TabIndex = 79;
+            this.easy.TabStop = true;
+            this.easy.Text = "かんたん";
+            this.easy.UseVisualStyleBackColor = true;
+            this.easy.CheckedChanged += new System.EventHandler(this.easy_CheckedChanged);
+            // 
+            // normal
+            // 
+            this.normal.AutoSize = true;
+            this.normal.Enabled = false;
+            this.normal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.normal.Location = new System.Drawing.Point(260, 259);
+            this.normal.Name = "normal";
+            this.normal.Size = new System.Drawing.Size(61, 19);
+            this.normal.TabIndex = 80;
+            this.normal.TabStop = true;
+            this.normal.Text = "ふつう";
+            this.normal.UseVisualStyleBackColor = true;
+            this.normal.CheckedChanged += new System.EventHandler(this.normal_CheckedChanged);
+            // 
+            // hard
+            // 
+            this.hard.AutoSize = true;
+            this.hard.Enabled = false;
+            this.hard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.hard.Location = new System.Drawing.Point(260, 284);
+            this.hard.Name = "hard";
+            this.hard.Size = new System.Drawing.Size(88, 19);
+            this.hard.TabIndex = 81;
+            this.hard.TabStop = true;
+            this.hard.Text = "むずかしい";
+            this.hard.UseVisualStyleBackColor = true;
+            this.hard.CheckedChanged += new System.EventHandler(this.hard_CheckedChanged);
+            // 
+            // oni
+            // 
+            this.oni.AutoSize = true;
+            this.oni.Enabled = false;
+            this.oni.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.oni.Location = new System.Drawing.Point(260, 309);
+            this.oni.Name = "oni";
+            this.oni.Size = new System.Drawing.Size(52, 19);
+            this.oni.TabIndex = 82;
+            this.oni.TabStop = true;
+            this.oni.Text = "おに";
+            this.oni.UseVisualStyleBackColor = true;
+            this.oni.CheckedChanged += new System.EventHandler(this.oni_CheckedChanged);
+            // 
+            // edit
+            // 
+            this.edit.AutoSize = true;
+            this.edit.Enabled = false;
+            this.edit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.edit.Location = new System.Drawing.Point(260, 334);
+            this.edit.Name = "edit";
+            this.edit.Size = new System.Drawing.Size(52, 19);
+            this.edit.TabIndex = 83;
+            this.edit.TabStop = true;
+            this.edit.Text = "おに";
+            this.edit.UseVisualStyleBackColor = true;
+            this.edit.CheckedChanged += new System.EventHandler(this.edit_CheckedChanged);
+            // 
+            // Kusudama
+            // 
+            this.Kusudama.AutoSize = true;
+            this.Kusudama.Location = new System.Drawing.Point(81, 338);
+            this.Kusudama.Name = "Kusudama";
+            this.Kusudama.Size = new System.Drawing.Size(104, 15);
+            this.Kusudama.TabIndex = 84;
+            this.Kusudama.Text = "↑(くすだま込み)";
+            this.Kusudama.Visible = false;
+            // 
             // ScoreCal_Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 546);
+            this.Controls.Add(this.Kusudama);
+            this.Controls.Add(this.edit);
+            this.Controls.Add(this.oni);
+            this.Controls.Add(this.hard);
+            this.Controls.Add(this.normal);
+            this.Controls.Add(this.easy);
             this.Controls.Add(this.ShinuchiValue);
             this.Controls.Add(this.ShinuchiText);
             this.Controls.Add(this.ShinuchiUD);
@@ -868,6 +966,12 @@
         public System.Windows.Forms.NumericUpDown ShinuchiUD;
         private System.Windows.Forms.Label ShinuchiText;
         public System.Windows.Forms.Label ShinuchiValue;
+        public System.Windows.Forms.RadioButton easy;
+        public System.Windows.Forms.RadioButton normal;
+        public System.Windows.Forms.RadioButton hard;
+        public System.Windows.Forms.RadioButton oni;
+        public System.Windows.Forms.RadioButton edit;
+        public System.Windows.Forms.Label Kusudama;
     }
 }
 
