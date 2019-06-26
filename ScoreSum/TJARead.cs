@@ -94,18 +94,23 @@ namespace ScoreCalculator
                             break;
                     }
 
-                    bCourseStart[nCourseNumber] = true;
                     bCourseExist[nCourseNumber] = true;                    
                 }
                 //#STARTと#ENDの間の文字列を取得する用
                 if (n9 >= 0)
                 {
+                    if (!bCourseExist[0] && !bCourseExist[1] && !bCourseExist[2] &&
+                        !bCourseExist[3] && !bCourseExist[4])
+                    {
+                        nCourseNumber = 3;
+                        bCourseExist[3] = true;
+                    }
+
                     bStart = true;
                 }
                 else if (n10 >= 0)
                 {
                     bEnd = true;
-                    bCourseStart[nCourseNumber] = false;
                 }
 
                 //コメントがある場合は取り除いたものを別の変数に入れる
@@ -740,7 +745,6 @@ namespace ScoreCalculator
             for (int i = 0; i < 5; i++)
             {
                 bCourseExist[i] = false;
-                bCourseStart[i] = false;
             }
         }
 
@@ -759,7 +763,6 @@ namespace ScoreCalculator
         public int balloonCount, level; //風船の数を数える。
         public bool bGogo, bStart, bEnd;//tjaの行がゴーゴーかどうか、#START～#END内かどうか。
         public bool[] bCourseExist = new bool[5] { false, false, false, false, false };
-        public bool[] bCourseStart = new bool[5] { false, false, false, false, false };
         public int nCourseNumber = 0;
         public int nSelectCourse = 0;
         public bool bRoll = false, bKusudamaExist = false;

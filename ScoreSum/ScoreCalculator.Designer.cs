@@ -636,7 +636,7 @@
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(44, 15);
             this.label21.TabIndex = 71;
-            this.label21.Text = "v2.4.0";
+            this.label21.Text = "v2.4.1";
             this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // INITM
